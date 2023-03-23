@@ -1,3 +1,3 @@
-export { HomePage } from './HomePage';
-export { AboutPage } from './AboutPage';
-export { Page404 } from './404';
+export * from './HomePage';
+export * from './AboutPage';
+export * from './404';

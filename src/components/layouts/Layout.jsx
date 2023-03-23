@@ -6,9 +6,9 @@ import Header from './Header';
 const Layout = () => {
   return (
     <React.Fragment>
-      <Header />
-      <Outlet />
-      <Footer />
+        <Header />
+        <Outlet />
+        <Footer />
     </React.Fragment>
   );
 };
