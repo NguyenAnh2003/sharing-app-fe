@@ -3,7 +3,12 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
-import { AboutPage, HomePage, Page404 } from './pages';
+import Page404 from './pages/404';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import { lazy, Suspense } from 'react';
+
+
 
 const router = createBrowserRouter([
   {
