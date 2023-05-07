@@ -3,26 +3,34 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
-import Page404 from './pages/404';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
 import { lazy, Suspense } from 'react';
 
 
+const lazyLoading = (pageName) => {
+  const LazyPage = lazy(() =>  
+    import(`./pages/${pageName}`)
+  );
+
+  return (
+    <Suspense fallback='Loading...'>
+      <LazyPage />
+    </Suspense>
+  );
+};
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    errorElement: <Page404 />,
+    errorElement: lazyLoading('404'),
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: lazyLoading('HomePage'),
       },
       {
         path: 'about',
-        element: <AboutPage />,
+        element: lazyLoading('AboutPage'),
       },
     ],
   },
