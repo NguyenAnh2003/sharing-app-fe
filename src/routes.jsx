@@ -8,7 +8,7 @@ import { lazy, Suspense } from 'react';
 
 const lazyLoading = (pageName) => {
   const LazyPage = lazy(() =>  
-    import(`./pages/${pageName}`)
+    import(`./pages/${pageName}.jsx`)
   );
 
   return (
