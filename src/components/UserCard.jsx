@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PostCard = React.memo((props) => {
+const UserCard = React.memo((props) => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const PostCard = React.memo((props) => {
   )
 })
 
-export default PostCard;
+export default UserCard;
