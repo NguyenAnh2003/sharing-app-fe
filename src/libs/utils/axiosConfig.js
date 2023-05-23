@@ -2,11 +2,11 @@ import axios from 'axios';
 
 // take userInfo from cookies ?
 
-const axiosClient = axios.create({
+const axiosConfig = axios.create({
   baseURL: '',
   headers: {},
   // content-type: application/json
-  
+  // header - authorization
 });
 
-export default axiosClient;
+export default axiosConfig;
