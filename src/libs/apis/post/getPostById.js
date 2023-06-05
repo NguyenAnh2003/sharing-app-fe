@@ -1,0 +1,1 @@
+// get with param postId

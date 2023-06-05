@@ -1,12 +1,14 @@
 import axios from 'axios';
 
-// take userInfo from cookies ?
+// take token from cookies ?
 
 const axiosConfig = axios.create({
   baseURL: '',
-  headers: {},
+  headers: {
+    Authorization: `Bearer `,
+  },
   // content-type: application/json
-  // header - authorization
+  // header - authorization - access token (taken from cookie)
 });
 
 export default axiosConfig;
