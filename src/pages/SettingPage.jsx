@@ -5,7 +5,7 @@ import React from 'react'
 const SettingPage = () => {
   return (
     <div>
-      
+      <p>Setting page</p>
     </div>
   )
 }

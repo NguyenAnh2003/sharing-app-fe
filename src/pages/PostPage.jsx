@@ -3,7 +3,7 @@ import React from 'react'
 const PostPage = () => {
   return (
     <div>
-      
+      <p>Post the next</p>
     </div>
   )
 }

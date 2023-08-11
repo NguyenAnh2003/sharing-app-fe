@@ -5,7 +5,7 @@ import React from 'react'
 const UpdatePostPage = () => {
   return (
     <div>
-      
+      <p>update post page</p>
     </div>
   )
 }
