@@ -3,9 +3,10 @@ import axios from 'axios';
 // take token from cookies ?
 
 const axiosConfig = axios.create({
-  baseURL: '',
+  baseURL: 'http://localhost:8080/api/',
   headers: {
     Authorization: `Bearer `,
+    "Content-Type": "application/json"
   },
   // content-type: application/json
   // header - authorization - access token (taken from cookie)
@@ -66,4 +67,5 @@ export const deleteHTTP = async (url) => {
     console.log(error.message);
   }
 };
+
 export default axiosConfig;
