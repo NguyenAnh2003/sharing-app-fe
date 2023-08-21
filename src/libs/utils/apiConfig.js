@@ -5,7 +5,8 @@ import axios from 'axios';
 const axiosConfig = axios.create({
   baseURL: 'http://localhost:8080/api/',
   headers: {
-    Authorization: `Bearer `,
+    // temporarily defining token
+    Authorization: `Bearer ${token}`,
     "Content-Type": "application/json"
   },
   // content-type: application/json
