@@ -20,6 +20,8 @@ export const postHTTP = async (url, params = {}) => {
     return (response = {
       data: res.data,
       status: res.status,
+      statusText: res.statusText,
+      headers: res.headers
     });
   } catch (error) {
     console.log(error.message);
@@ -34,6 +36,8 @@ export const getHTTP = async (url) => {
     return (response = {
       data: res.data,
       status: res.status,
+      statusText: res.statusText,
+      headers: res.headers
     });
   } catch (error) {
     console.log(error.message);
@@ -48,6 +52,7 @@ export const putHTTP = async (url, params = {}) => {
     return (response = {
       data: res.data,
       status: res.status,
+      statusText: res.statusText
     });
   } catch (error) {
     console.log(error.message);
@@ -62,6 +67,7 @@ export const deleteHTTP = async (url) => {
     return (response = {
       data: res.data,
       status: res.status,
+      statusText: res.statusText
     });
   } catch (error) {
     console.log(error.message);
