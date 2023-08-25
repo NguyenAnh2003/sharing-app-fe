@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react';
 
 /**
  * UserCard used for searching page the properties of
@@ -8,6 +9,7 @@ import React from 'react'
 
 const UserCard = React.memo((props) => {
   console.log("Re-render from userCard");
+    
   return (
     <div>
       
