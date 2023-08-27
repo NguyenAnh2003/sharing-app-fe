@@ -1,5 +1,6 @@
+import { getCurrentUser } from './libs/apis/authAPI';
 import AppRoutes from './routes';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // apply move to top button on this?
 function App() {
@@ -9,7 +10,7 @@ function App() {
        * token from cookie stored in header
        */
       const data = await getCurrentUser();
-      console.log(data);
+      console.log('current user', data);
     };
     fetchAPI();
   }, []);
