@@ -3,6 +3,7 @@ import AppRoutes from './routes';
 import React, { useEffect } from 'react';
 
 // apply move to top button on this?
+
 /**
  * Save current user info in app
  */

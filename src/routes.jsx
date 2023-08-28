@@ -29,10 +29,6 @@ const router = createBrowserRouter([
         element: lazyLoading('HomePage'),
       },
       {
-        path: 'about',
-        element: lazyLoading('AboutPage'),
-      },
-      {
         path: 'signin',
         element: lazyLoading('SignInPage')
       },
