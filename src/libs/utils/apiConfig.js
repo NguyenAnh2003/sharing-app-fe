@@ -4,6 +4,7 @@ import axios from 'axios';
 /**
  * Defining cookie -> get access token
  */
+const token = ""
 
 const axiosConfig = axios.create({
   baseURL: 'http://localhost:8080/api/',

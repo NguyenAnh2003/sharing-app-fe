@@ -9,7 +9,9 @@ import { useEffect } from 'react';
 
 const UserCard = React.memo((props) => {
   console.log("Re-render from userCard");
-    
+  /**
+   * getUserById
+   */
   return (
     <div>
       

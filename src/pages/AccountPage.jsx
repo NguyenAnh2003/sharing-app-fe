@@ -14,8 +14,11 @@ const AccountPage = () => {
    * Allowing to update based on current userId
    */
   useEffect(() => {
-    const data = getUserById(userId);
-    console.log('user info', data);
+    const fetchAPI = async () => {
+      const data = getUserById(userId);
+      console.log('user info', data);
+    };
+    fetchAPI();
   }, [userId]);
   return (
     <div>
