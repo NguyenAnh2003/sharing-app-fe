@@ -5,15 +5,16 @@
  * need cookie to approach api
  */
 
+import { getHTTP, postHTTP } from '../utils/apiConfig';
+
 export const login = (gmail, password) => {
-  
-}
+  const res = postHTTP('auth/login', { gmail, password });
+  return res;
+};
 
-export const register = () => {
-
-}
+export const register = () => {};
 
 export const getCurrentUser = () => {
-
-}
-
+  const res = getHTTP('auth');
+  return res;
+};
