@@ -18,6 +18,7 @@ const SignInPage = () => {
       console.log(data);
       /**
        * Store current user info in state
+       * Store access token in header
        */
       
     } catch (error) {
