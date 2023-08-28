@@ -63,6 +63,8 @@ export const putHTTP = async (url, params = {}) => {
   }
 };
 
+// patch?
+
 // delete method
 export const deleteHTTP = async (url) => {
   try {
