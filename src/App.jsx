@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 
 /**
  * Save current user info in app
+ * store current user info in state
  */
 
 function App() {

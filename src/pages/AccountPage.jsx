@@ -9,6 +9,10 @@ import { useParams } from 'react-router-dom';
  */
 const AccountPage = () => {
   const { id: userId } = useParams();
+  /**
+   * Calling current user to check (state)
+   * Allowing to update based on current userId
+   */
   useEffect(() => {
     const data = getUserById(userId);
     console.log('user info', data);
