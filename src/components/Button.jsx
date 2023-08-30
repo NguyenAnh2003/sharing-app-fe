@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Button = () => {
+const Button = ({ text }) => {
   return (
-    <>
-      <button>Button</button>
-    </>
+    <React.Fragment>
+      <button>{text}</button>
+    </React.Fragment>
   );
 };
 
