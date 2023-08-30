@@ -11,16 +11,20 @@ const SignInPage = () => {
       /**
        * Encrypt data request
        */
-      const data = await login(
+      console.log(
         gmail.current.value,
         password.current.value
       );
-      console.log(data);
+      const res = await login(
+        gmail.current.value,
+        password.current.value
+      );
+      console.log('token info', res);
       /**
        * Store current user info in state
        * Store access token in header
        */
-      
+      document.cookie = res.data.token;
     } catch (error) {
       console.log(error);
     }
