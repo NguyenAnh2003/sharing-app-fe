@@ -15,7 +15,7 @@ const AccountPage = () => {
    */
   useEffect(() => {
     const fetchAPI = async () => {
-      const data = getUserById(userId);
+      const data = await getUserById(userId);
       console.log('user info', data);
     };
     fetchAPI();
