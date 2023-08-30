@@ -2,8 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 
 /**
- * @ Post Image URL
- * @ avatar user URL
+ * Post Image URL
+ * avatar user URL
  * */
 
 const UploadFile = () => {

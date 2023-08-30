@@ -12,7 +12,10 @@ export const login = (gmail, password) => {
   return res;
 };
 
-export const register = () => {};
+export const register = () => {
+  const res = postHTTP('auth');
+  return res;
+};
 
 export const getCurrentUser = () => {
   const res = getHTTP('auth');
