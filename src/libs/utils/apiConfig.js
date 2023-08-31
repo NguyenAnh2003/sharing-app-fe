@@ -3,6 +3,7 @@ import axios from 'axios';
 // take token from cookies ?
 /**
  * Defining cookie -> get access token
+ * Set expiration
  */
 const token = document.cookie;
 
@@ -58,6 +59,7 @@ export const putHTTP = async (url, params = {}) => {
       data: res.data,
       status: res.status,
       statusText: res.statusText,
+      headers: res.headers,
     };
   } catch (error) {
     console.log(error.message);
@@ -75,6 +77,7 @@ export const deleteHTTP = async (url) => {
       data: res.data,
       status: res.status,
       statusText: res.statusText,
+      headers: res.headers,
     };
   } catch (error) {
     console.log(error.message);
