@@ -9,9 +9,7 @@ const SignInPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      /**
-       * Encrypt data request
-       */
+      /** Encrypt data request*/
       console.log(
         gmail.current.value,
         password.current.value
@@ -27,9 +25,7 @@ const SignInPage = () => {
       } else {
         setToken(res.data.token);
       }
-      /**
-       * Store current user info in state
-       */
+      /** Store current user info in state*/
     } catch (error) {
       /* Validate app here use error status to check */
       console.log(error);
