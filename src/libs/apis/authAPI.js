@@ -16,7 +16,9 @@ export const login = (gmail, password) => {
 };
 
 export const register = () => {
-  const res = postHTTP('auth');
+  const res = postHTTP('auth/register', {
+    
+  });
   return res;
 };
 

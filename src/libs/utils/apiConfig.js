@@ -28,7 +28,11 @@ export const postHTTP = async (url, params = {}) => {
       headers: res.headers,
     };
   } catch (error) {
-    console.log(error.message);
+    console.log("Error res: ", {
+      data: error.response.data,
+      status: error.response.status,
+      headers: error.response.headers
+    });
   }
 };
 

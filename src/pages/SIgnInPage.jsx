@@ -21,11 +21,12 @@ const SignInPage = () => {
         password.current.value
       );
       console.log('token info', res);
+      
       /**
        * Store current user info in state
        * Store access token in header
        */
-      setToken(res.data.token);
+      setToken(res?.data.token);
     } catch (error) {
       console.log(error);
     }
