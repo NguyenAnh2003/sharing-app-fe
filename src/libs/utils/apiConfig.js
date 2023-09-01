@@ -19,21 +19,20 @@ const axiosConfig = axios.create({
 
 // post method
 export const postHTTP = async (url, params = {}) => {
-  try {
-    const res = await axiosConfig.post(url, params);
-    // response config
-    return {
-      data: res.data,
-      status: res.status,
-      headers: res.headers,
-    };
-  } catch (error) {
-    console.log("Error res: ", {
-      data: error.response.data,
-      status: error.response.status,
-      headers: error.response.headers
+  const res = await axiosConfig
+    .post(url, params)
+    .catch((e) => {
+      const errorResponse = {
+        status: e.response.status,
+        headers: e.response.headers,
+      };
+      return Promise.reject(errorResponse);
     });
-  }
+  return {
+    data: res.data,
+    status: res.status,
+    headers: res.headers,
+  };
 };
 
 // get method
@@ -47,10 +46,10 @@ export const getHTTP = async (url) => {
       headers: res.headers,
     };
   } catch (error) {
-    console.log("Error res: ", {
+    console.log('Error res: ', {
       data: error.response.data,
       status: error.response.status,
-      headers: error.response.headers
+      headers: error.response.headers,
     });
   }
 };
@@ -66,10 +65,10 @@ export const putHTTP = async (url, params = {}) => {
       headers: res.headers,
     };
   } catch (error) {
-    console.log("Error res: ", {
+    console.log('Error res: ', {
       data: error.response.data,
       status: error.response.status,
-      headers: error.response.headers
+      headers: error.response.headers,
     });
   }
 };
@@ -87,10 +86,10 @@ export const deleteHTTP = async (url) => {
       headers: res.headers,
     };
   } catch (error) {
-    console.log("Error res: ", {
+    console.log('Error res: ', {
       data: error.response.data,
       status: error.response.status,
-      headers: error.response.headers
+      headers: error.response.headers,
     });
   }
 };
