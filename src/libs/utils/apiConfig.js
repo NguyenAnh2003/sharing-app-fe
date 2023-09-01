@@ -37,21 +37,19 @@ export const postHTTP = async (url, params = {}) => {
 
 // get method
 export const getHTTP = async (url) => {
-  try {
-    const res = await axiosConfig.get(url);
-    // response config
-    return {
-      data: res.data,
-      status: res.status,
-      headers: res.headers,
+  const res = await axiosConfig.get(url).catch((e) => {
+    const errorResponse = {
+      status: e.response.status,
+      headers: e.response.headers,
     };
-  } catch (error) {
-    console.log('Error res: ', {
-      data: error.response.data,
-      status: error.response.status,
-      headers: error.response.headers,
-    });
-  }
+    return Promise.reject(errorResponse);
+  });
+  // response config
+  return {
+    data: res.data,
+    status: res.status,
+    headers: res.headers,
+  };
 };
 
 // put method
