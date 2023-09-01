@@ -47,7 +47,11 @@ export const getHTTP = async (url) => {
       headers: res.headers,
     };
   } catch (error) {
-    console.log(error.message);
+    console.log("Error res: ", {
+      data: error.response.data,
+      status: error.response.status,
+      headers: error.response.headers
+    });
   }
 };
 
@@ -62,7 +66,11 @@ export const putHTTP = async (url, params = {}) => {
       headers: res.headers,
     };
   } catch (error) {
-    console.log(error.message);
+    console.log("Error res: ", {
+      data: error.response.data,
+      status: error.response.status,
+      headers: error.response.headers
+    });
   }
 };
 
@@ -79,7 +87,11 @@ export const deleteHTTP = async (url) => {
       headers: res.headers,
     };
   } catch (error) {
-    console.log(error.message);
+    console.log("Error res: ", {
+      data: error.response.data,
+      status: error.response.status,
+      headers: error.response.headers
+    });
   }
 };
 
