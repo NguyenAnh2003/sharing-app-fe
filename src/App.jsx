@@ -13,6 +13,7 @@ import React, { useEffect } from 'react';
  */
 
 function App() {
+  /* Check current user 403 ERROR_CODE navigate to signin page */
   useEffect(() => {
     const fetchAPI = async () => {
       /**
