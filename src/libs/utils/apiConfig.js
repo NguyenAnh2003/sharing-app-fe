@@ -54,42 +54,40 @@ export const getHTTP = async (url) => {
 
 // put method
 export const putHTTP = async (url, params = {}) => {
-  try {
-    const res = await axiosConfig.post(url, params);
-    // response config
-    return {
-      data: res.data,
-      status: res.status,
-      headers: res.headers,
-    };
-  } catch (error) {
-    console.log('Error res: ', {
-      data: error.response.data,
-      status: error.response.status,
-      headers: error.response.headers,
+  const res = await axiosConfig
+    .post(url, params)
+    .catch((e) => {
+      const errorResponse = {
+        status: e.response.status,
+        headers: e.response.headers,
+      };
+      return Promise.reject(errorResponse);
     });
-  }
+  // response config
+  return {
+    data: res.data,
+    status: res.status,
+    headers: res.headers,
+  };
 };
 
 // patch?
 
 // delete method
 export const deleteHTTP = async (url) => {
-  try {
-    const res = await axiosConfig.get(url);
-    // response config
-    return {
-      data: res.data,
-      status: res.status,
-      headers: res.headers,
+  const res = await axiosConfig.get(url).catch((e) => {
+    const errorResponse = {
+      status: e.response.status,
+      headers: e.response.headers,
     };
-  } catch (error) {
-    console.log('Error res: ', {
-      data: error.response.data,
-      status: error.response.status,
-      headers: error.response.headers,
-    });
-  }
+    return Promise.reject(errorResponse);
+  });
+  // response config
+  return {
+    data: res.data,
+    status: res.status,
+    headers: res.headers,
+  };
 };
 
 export default axiosConfig;
