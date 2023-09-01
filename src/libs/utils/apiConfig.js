@@ -10,7 +10,6 @@ const token = document.cookie;
 const axiosConfig = axios.create({
   baseURL: 'http://localhost:8080/api/',
   headers: {
-    // temporarily defining token
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   },

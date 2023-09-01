@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { login } from '../libs/apis/authAPI';
 import { useRef } from 'react';
+import { setToken } from '../libs';
 
 const SignInPage = () => {
   const gmail = useRef('');
@@ -24,7 +25,7 @@ const SignInPage = () => {
        * Store current user info in state
        * Store access token in header
        */
-      document.cookie = res.data.token;
+      setToken(res.data.token);
     } catch (error) {
       console.log(error);
     }

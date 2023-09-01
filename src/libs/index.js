@@ -1,2 +1,2 @@
 export * from './utils/apiConfig';
-export * from './apis';
+export * from './utils/settings';
