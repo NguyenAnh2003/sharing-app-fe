@@ -9,8 +9,8 @@ import { getHTTP, postHTTP } from '../utils/apiConfig';
 
 export const login = (gmail, password) => {
   const res = postHTTP('auth/login', {
-    "gmail": gmail,
-    "password": password,
+    gmail,
+    password,
   });
   return res;
 };
