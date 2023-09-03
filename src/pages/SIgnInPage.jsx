@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { login } from '../libs/apis/authAPI';
 import { useRef } from 'react';
 import { setToken } from '../libs';
+import { useState } from 'react';
 
 const SignInPage = () => {
   const gmail = useRef('');
   const password = useRef('');
+  const [error, setError] = useState('');
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -29,6 +31,7 @@ const SignInPage = () => {
     } catch (error) {
       /* Validate app here use error status to check */
       console.log(error);
+      setError(error.data.message);
     }
   };
   return (
@@ -49,6 +52,7 @@ const SignInPage = () => {
         />
         <button type="submit">Sign In</button>
       </form>
+      <b>{error}</b>
     </div>
   );
 };

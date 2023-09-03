@@ -23,6 +23,7 @@ export const postHTTP = async (url, params = {}) => {
     .post(url, params)
     .catch((e) => {
       const errorResponse = {
+        data: e.response.data,
         status: e.response.status,
         headers: e.response.headers,
       };
