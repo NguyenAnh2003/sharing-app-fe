@@ -12,21 +12,14 @@ const SignInPage = () => {
     e.preventDefault();
     try {
       /** Encrypt data request*/
-      console.log(
-        gmail.current.value,
-        password.current.value
-      );
       const res = await login(
         gmail.current.value,
         password.current.value
       );
       console.log('res', res?.data.token);
       /** Store access token in header **/
-      if (!res) {
-        return;
-      } else {
-        setToken(res.data.token);
-      }
+      if (!res) return;
+      else setToken(res.data.token);
       /** Store current user info in state*/
     } catch (error) {
       /* Validate app here use error status to check */
