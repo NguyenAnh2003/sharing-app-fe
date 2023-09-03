@@ -31,7 +31,7 @@ const SignInPage = () => {
     } catch (error) {
       /* Validate app here use error status to check */
       console.log(error);
-      setError(error.data.message);
+      setError(error.data.message + ' ' + error.status);
     }
   };
   return (
