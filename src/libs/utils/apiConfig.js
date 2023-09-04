@@ -40,6 +40,7 @@ export const postHTTP = async (url, params = {}) => {
 export const getHTTP = async (url) => {
   const res = await axiosConfig.get(url).catch((e) => {
     const errorResponse = {
+      data: e.response.data,
       status: e.response.status,
       headers: e.response.headers,
     };
@@ -59,6 +60,7 @@ export const putHTTP = async (url, params = {}) => {
     .post(url, params)
     .catch((e) => {
       const errorResponse = {
+        data: e.response.data,
         status: e.response.status,
         headers: e.response.headers,
       };
@@ -78,6 +80,7 @@ export const putHTTP = async (url, params = {}) => {
 export const deleteHTTP = async (url) => {
   const res = await axiosConfig.get(url).catch((e) => {
     const errorResponse = {
+      data: e.response.data,
       status: e.response.status,
       headers: e.response.headers,
     };

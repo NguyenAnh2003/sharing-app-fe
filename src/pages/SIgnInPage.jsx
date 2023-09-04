@@ -16,10 +16,10 @@ const SignInPage = () => {
         gmail.current.value,
         password.current.value
       );
-      console.log('res', res?.data.token);
+      console.log('res', res?.data.acessToken);
       /** Store access token in header **/
       if (!res) return;
-      else setToken(res.data.token);
+      else setToken(res.data.accessToken);
       /** Store current user info in state*/
     } catch (error) {
       /* Validate app here use error status to check */
