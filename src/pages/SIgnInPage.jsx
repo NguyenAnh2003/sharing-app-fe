@@ -16,7 +16,7 @@ const SignInPage = () => {
         gmail.current.value,
         password.current.value
       );
-      console.log('res', res?.data.acessToken);
+      console.log('res', res?.data.accessToken);
       /** Store access token in header **/
       if (!res) return;
       else setToken(res.data.accessToken);
