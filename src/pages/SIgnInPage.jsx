@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { login } from '../libs/apis/authAPI';
 import { useRef } from 'react';
 import { setToken } from '../libs';
@@ -24,13 +24,16 @@ const SignInPage = () => {
     } catch (error) {
       /* Validate app here use error status to check */
       console.log(error);
-      setError(error.data.message + ' ' + error.status);
+      setError(
+        'Message: ',
+        error.data.message + 'Status: ' + error.status
+      );
     }
   };
   return (
     <div>
       <p>sign in simple</p>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className='flex justify-center'>
         <input
           ref={gmail}
           placeholder="Your Gmail"

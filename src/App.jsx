@@ -1,4 +1,3 @@
-import { getCurrentUser } from './libs/apis/authAPI';
 import AppRoutes from './routes';
 import React, { useEffect } from 'react';
 
@@ -14,16 +13,7 @@ import React, { useEffect } from 'react';
 
 function App() {
   /* Check current user 403 ERROR_CODE navigate to signin page */
-  useEffect(() => {
-    const fetchAPI = async () => {
-      /**
-       * token from cookie stored in header
-       */
-      const data = await getCurrentUser();
-      console.log('current user', data);
-    };
-    fetchAPI();
-  }, []);
+  
   
   return <AppRoutes/>;
 }
