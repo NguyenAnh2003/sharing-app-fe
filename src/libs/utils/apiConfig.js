@@ -15,6 +15,7 @@ const axiosConfig = axios.create({
   },
   // content-type: application/json
   // header - authorization - access token (taken from cookie)
+  
 });
 
 // post method
