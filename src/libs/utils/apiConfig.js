@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { getToken } from './settings';
 
 // take token from cookies ?
 /**
  * Defining cookie -> get access token
  * Set expiration
  */
-const token = document.cookie;
+const token = getToken();
 
 const axiosConfig = axios.create({
   baseURL: 'http://localhost:8080/api/',
@@ -15,7 +16,6 @@ const axiosConfig = axios.create({
   },
   // content-type: application/json
   // header - authorization - access token (taken from cookie)
-  
 });
 
 // post method
