@@ -63,8 +63,8 @@ export const postHTTP = async (url, params = {}) => {
 };
 
 // get method
-export const getHTTP = async (url, headers = {}) => {
-  const res = await axiosConfig.get(url, headers);
+export const getHTTP = async (url) => {
+  const res = await axiosConfig.get(url);
   return res;
 };
 
