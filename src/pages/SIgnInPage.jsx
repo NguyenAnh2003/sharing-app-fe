@@ -1,8 +1,8 @@
 import React from 'react';
-import { login } from '../libs/apis/authAPI';
 import { useRef } from 'react';
 import { setToken } from '../libs';
 import { useState } from 'react';
+import { login } from '../libs/apis/auth.api';
 
 const SignInPage = () => {
   const gmail = useRef('');
@@ -14,20 +14,20 @@ const SignInPage = () => {
       /** Encrypt data request*/
       const res = await login(
         gmail.current.value,
-        password.current.value
+        password.current.value,
       );
-      console.log('res', res?.data.accessToken);
+      console.log('res', res?.data);
       /** Store access token in header **/
       if (!res) return;
-      else setToken(res.data.accessToken);
+      else setToken(res?.data.accessToken);
       /** Store current user info in state*/
     } catch (error) {
       /* Validate app here use error status to check */
       console.log(error);
-      setError(
-        'Message: ',
-        error.data.message + 'Status: ' + error.status
-      );
+      // setError(
+      //   'Message: ',
+      //   error.data.message + 'Status: ' + error.status
+      // );
     }
   };
   return (

@@ -6,30 +6,43 @@ import { getToken } from './settings';
  * Defining cookie -> get access token
  * Set expiration
  */
-const token = getToken();
 
 const axiosConfig = axios.create({
+  /**
+   * base URL
+   */
   baseURL: 'http://localhost:8080/api/',
   headers: {
-    Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   },
-  // content-type: application/json
-  // header - authorization - access token (taken from cookie)
 });
 
+axiosConfig.interceptors.request.use(
+  (config) => {
+    if (!config.url.includes('/login') && !config.url.includes('/register')) {
+      const token = getToken();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
+
+
 // post method
-export const postHTTP = async (url, params = {}) => {
-  const res = await axiosConfig
-    .post(url, params)
-    .catch((e) => {
-      const errorResponse = {
-        data: e.response.data,
-        status: e.response.status,
-        headers: e.response.headers,
-      };
-      return Promise.reject(errorResponse);
-    });
+export const postHTTP = async (url, params = {}, headers = {}) => {
+  const res = await axiosConfig.post(url, params, headers).catch((e) => {
+    const errorResponse = {
+      data: e.response.data,
+      status: e.response.status,
+      headers: e.response.headers,
+    };
+    return Promise.reject(errorResponse);
+  });
   return {
     data: res.data,
     status: res.status,
@@ -38,8 +51,8 @@ export const postHTTP = async (url, params = {}) => {
 };
 
 // get method
-export const getHTTP = async (url) => {
-  const res = await axiosConfig.get(url).catch((e) => {
+export const getHTTP = async (url, headers = {}) => {
+  const res = await axiosConfig.get(url, headers).catch((e) => {
     const errorResponse = {
       data: e.response.data,
       status: e.response.status,
@@ -57,16 +70,14 @@ export const getHTTP = async (url) => {
 
 // put method
 export const putHTTP = async (url, params = {}) => {
-  const res = await axiosConfig
-    .put(url, params)
-    .catch((e) => {
-      const errorResponse = {
-        data: e.response.data,
-        status: e.response.status,
-        headers: e.response.headers,
-      };
-      return Promise.reject(errorResponse);
-    });
+  const res = await axiosConfig.put(url, params).catch((e) => {
+    const errorResponse = {
+      data: e.response.data,
+      status: e.response.status,
+      headers: e.response.headers,
+    };
+    return Promise.reject(errorResponse);
+  });
   // response config
   return {
     data: res.data,

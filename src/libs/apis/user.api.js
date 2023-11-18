@@ -1,7 +1,6 @@
-import { getHTTP } from '../utils/apiConfig';
+import { getHTTP } from '../utils/api.config';
 // getUserById
 // getUsersByName
-
 
 export const getUserById = (userId) => {
   const res = getHTTP(`user/${userId}`);

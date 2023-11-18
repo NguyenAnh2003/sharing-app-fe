@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 /*
-Manage cookie lib
+* Manage cookie lib
+* using lib for managing cookie - easier than managing from scratch
 */
 export const setToken = (token) => {
   /**
@@ -25,10 +26,3 @@ export const setUserId = () => {};
 export const getUserId = () => {};
 
 export const deleteUserId = () => {};
-
-// apply AI & dark/light mode
-export const setUserSetting = () => {};
-
-export const getUserSetting = () => {};
-
-export const deleteUserSetting = () => {};
