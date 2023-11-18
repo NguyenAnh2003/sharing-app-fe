@@ -17,6 +17,10 @@ const axiosConfig = axios.create({
   },
 });
 
+/**
+ * config request
+ * excluding adding access token to login and register feature
+ */
 axiosConfig.interceptors.request.use(
   (config) => {
     if (!config.url.includes('/login') && !config.url.includes('/register')) {
@@ -32,78 +36,50 @@ axiosConfig.interceptors.request.use(
   }
 );
 
-
-// post method
-export const postHTTP = async (url, params = {}, headers = {}) => {
-  const res = await axiosConfig.post(url, params, headers).catch((e) => {
+/** config response */
+axiosConfig.interceptors.response.use(
+  (config) => {
+    const responseData = {
+      data: config.data,
+      status: config.status,
+      header: config.headers,
+    };
+    return responseData;
+  },
+  (err) => {
     const errorResponse = {
-      data: e.response.data,
-      status: e.response.status,
-      headers: e.response.headers,
+      data: err.response.data,
+      status: err.response.status,
+      headers: err.response.headers,
     };
     return Promise.reject(errorResponse);
-  });
-  return {
-    data: res.data,
-    status: res.status,
-    headers: res.headers,
-  };
+  }
+);
+
+// post method
+export const postHTTP = async (url, params = {}) => {
+  const res = await axiosConfig.post(url, params);
+  return res;
 };
 
 // get method
 export const getHTTP = async (url, headers = {}) => {
-  const res = await axiosConfig.get(url, headers).catch((e) => {
-    const errorResponse = {
-      data: e.response.data,
-      status: e.response.status,
-      headers: e.response.headers,
-    };
-    return Promise.reject(errorResponse);
-  });
-  // response config
-  return {
-    data: res.data,
-    status: res.status,
-    headers: res.headers,
-  };
+  const res = await axiosConfig.get(url, headers);
+  return res;
 };
 
 // put method
 export const putHTTP = async (url, params = {}) => {
-  const res = await axiosConfig.put(url, params).catch((e) => {
-    const errorResponse = {
-      data: e.response.data,
-      status: e.response.status,
-      headers: e.response.headers,
-    };
-    return Promise.reject(errorResponse);
-  });
-  // response config
-  return {
-    data: res.data,
-    status: res.status,
-    headers: res.headers,
-  };
+  const res = await axiosConfig.put(url, params);
+  return res;
 };
 
 // patch?
 
 // delete method
 export const deleteHTTP = async (url) => {
-  const res = await axiosConfig.delete(url).catch((e) => {
-    const errorResponse = {
-      data: e.response.data,
-      status: e.response.status,
-      headers: e.response.headers,
-    };
-    return Promise.reject(errorResponse);
-  });
-  // response config
-  return {
-    data: res.data,
-    status: res.status,
-    headers: res.headers,
-  };
+  const res = await axiosConfig.delete(url);
+  return res;
 };
 
 export default axiosConfig;
