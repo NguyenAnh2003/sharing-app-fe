@@ -14,8 +14,6 @@ export const login = (gmail, password) => {
       gmail,
       password,
     },
-    /** null headers */
-    {}
   );
   return res;
 };
