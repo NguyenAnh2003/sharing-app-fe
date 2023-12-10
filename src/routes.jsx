@@ -37,8 +37,8 @@ const router = createBrowserRouter([
         element: lazyLoading('SignUpPage')
       },
       {
-        path: 'upload',
-        element: lazyLoading('UploadFile')
+        path: 'test',
+        element: lazyLoading('TestUpload')
       }
     ],
   },

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from './settings';
+import { getToken } from '../libs';
 
 // take token from cookies ?
 /**
@@ -28,6 +28,10 @@ axiosConfig.interceptors.request.use(
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
+    }
+    if(config.url.includes('/upload')) {
+      /** set headers for upload end point */
+      config.headers['Content-Type'] = 'multipart/form-data' // using form data for upload file
     }
     return config;
   },

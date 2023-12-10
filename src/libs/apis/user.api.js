@@ -1,4 +1,5 @@
-import { getHTTP } from '../utils/api.config';
+import { getHTTP } from "../../configs/api.config";
+
 // getUserById
 // getUsersByName
 

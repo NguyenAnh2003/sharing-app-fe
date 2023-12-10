@@ -1,8 +1,7 @@
 import React from 'react';
 import { useRef } from 'react';
-import { setToken } from '../libs';
+import { login, setToken } from '../libs';
 import { useState } from 'react';
-import { login } from '../libs/apis/auth.api';
 import { useNavigate } from 'react-router-dom';
 
 const SignInPage = () => {

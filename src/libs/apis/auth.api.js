@@ -5,8 +5,7 @@
  * need cookie to approach api
  */
 
-import { getHTTP, postHTTP } from '../utils/api.config';
-
+import { getHTTP, postHTTP } from "../../configs/api.config";
 export const login = (gmail, password) => {
   const res = postHTTP(
     'auth/login',
