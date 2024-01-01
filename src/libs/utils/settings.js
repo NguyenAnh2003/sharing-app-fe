@@ -1,12 +1,10 @@
 import Cookies from 'js-cookie';
 /*
-* Manage cookie lib
-* using lib for managing cookie - easier than managing from scratch
-*/
+ * Manage cookie lib
+ * using lib for managing cookie - easier than managing from scratch
+ */
 export const setToken = (token) => {
-  /**
-   *  set expiration for token
-   * */
+  /** set expiration for token */
   Cookies.set('token', token, { expires: 24 });
 };
 

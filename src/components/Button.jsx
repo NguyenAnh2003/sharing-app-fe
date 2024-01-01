@@ -1,10 +1,13 @@
 import React from 'react';
 
 const Button = ({ text }) => {
+  /**
+   * including spinner
+   */
   return (
-    <React.Fragment>
+    <>
       <button>{text}</button>
-    </React.Fragment>
+    </>
   );
 };
 

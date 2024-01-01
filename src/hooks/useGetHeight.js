@@ -5,7 +5,13 @@ import { useEffect } from 'react';
 const useGetHeight = () => {
 
   useEffect(() => {
-    
+    window.addEventListener('scroll', () => {
+      
+    })
+
+    return () => {
+      window.removeEventListener('scroll')
+    }
   }, []);
 };
 

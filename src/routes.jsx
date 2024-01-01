@@ -1,18 +1,12 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/layouts/Layout';
 import { lazy, Suspense } from 'react';
 
-
 const lazyLoading = (pageName) => {
-  const LazyPage = lazy(() =>  
-    import(`./pages/${pageName}.jsx`)
-  );
+  const LazyPage = lazy(() => import(`./pages/${pageName}.jsx`));
 
   return (
-    <Suspense fallback='Loading...'>
+    <Suspense fallback="Loading...">
       <LazyPage />
     </Suspense>
   );
@@ -30,16 +24,16 @@ const router = createBrowserRouter([
       },
       {
         path: 'signin',
-        element: lazyLoading('SignInPage')
+        element: lazyLoading('SignInPage'),
       },
       {
         path: 'signup',
-        element: lazyLoading('SignUpPage')
+        element: lazyLoading('SignUpPage'),
       },
       {
-        path: 'test',
-        element: lazyLoading('TestUpload')
-      }
+        path: 'test-upload',
+        element: lazyLoading('UploadFile'),
+      },
     ],
   },
 ]);

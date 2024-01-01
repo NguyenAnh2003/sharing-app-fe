@@ -1,33 +1,36 @@
 import React from 'react';
 import { useRef } from 'react';
 import { login, setToken } from '../libs';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const SignInPage = () => {
   const navigate = useNavigate();
+  /** useForm */
   const gmail = useRef('');
   const password = useRef('');
-  const [error, setError] = useState('');
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       /** Encrypt data request*/
-      const res = await login(gmail.current.value, password.current.value);
-      console.log('res', res?.data);
+      const { data, status } = await login(gmail.current.value, password.current.value);
+      console.log('response', data);
       /** Store access token in header **/
-      if (!res) return;
-      else {
-        setToken(res?.data.accessToken);
-        navigate('/')
+      if (status === 200) {
+        setToken(data.accessToken);
+        toast.success('Login sucessfully');
+        navigate('/');
       }
       /** Store current user info in state*/
     } catch (error) {
       /* Validate app here use error status to check */
       console.log(error);
-      setError('Message: ' + error.data.message + ' Status: ' + error.status);
+      /** notify with error */
+      toast.error(error.message);
     }
   };
+
   return (
     <div>
       <p>sign in simple</p>
@@ -36,7 +39,6 @@ const SignInPage = () => {
         <input ref={password} placeholder="Your Password" type="password" required />
         <button type="submit">Sign In</button>
       </form>
-      <b>{error}</b>
     </div>
   );
 };

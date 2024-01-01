@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TestUpload = () => {
+const Message = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const TestUpload = () => {
   )
 }
 
-export default TestUpload
+export default Message

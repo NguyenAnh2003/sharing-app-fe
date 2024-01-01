@@ -20,6 +20,7 @@ const AccountPage = () => {
     };
     fetchAPI();
   }, [userId]);
+  
   return (
     <div>
       <p>Account page</p>
