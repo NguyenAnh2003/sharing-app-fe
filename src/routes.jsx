@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'signin',
-        element: lazyLoading('SignInPage'),
+        element: lazyLoading('LoginPage'),
       },
       {
         path: 'signup',
