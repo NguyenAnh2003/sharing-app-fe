@@ -8,7 +8,7 @@
 import { getHTTP, postHTTP } from "../../configs/api.config";
 export const login = (gmail, password) => {
   const res = postHTTP(
-    'auth/login',
+    'auth/signin',
     {
       gmail,
       password,
@@ -18,7 +18,7 @@ export const login = (gmail, password) => {
 };
 
 export const register = () => {
-  const res = postHTTP('auth/register', {});
+  const res = postHTTP('auth/signup', {});
   return res;
 };
 

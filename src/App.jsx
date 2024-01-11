@@ -12,20 +12,7 @@ import { Toaster } from 'react-hot-toast';
  */
 
 function App() {
-  /* Check current user 403 ERROR_CODE navigate to signin page */
-  /** get currentUser directly validate in App file */
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await getCurrentUser();
-        console.log('current user', data);
-      } catch (error) {
-        if (error.status === 403) navigate('/signin');
-      }
-    };
-    fetchData();
-  }, []);
-
+  
   return (
     <>
       {/** Toaster applied for all page

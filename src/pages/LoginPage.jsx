@@ -13,7 +13,6 @@ const SignInPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      /** Encrypt data request*/
       const { data, status } = await login(gmail.current.value, password.current.value);
       console.log('response', data);
       /** Store access token in header **/
@@ -27,7 +26,7 @@ const SignInPage = () => {
       /* Validate app here use error status to check */
       console.log(error);
       /** notify with error */
-      toast.error(error.message);
+      toast.error('Internal error');
     }
   };
 

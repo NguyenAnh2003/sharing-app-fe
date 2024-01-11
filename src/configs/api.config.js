@@ -23,7 +23,7 @@ const axiosConfig = axios.create({
  */
 axiosConfig.interceptors.request.use(
   (config) => {
-    if (!config.url.includes('/login') && !config.url.includes('/register')) {
+    if (!config.url.includes('auth/signin') && !config.url.includes('auth/signup')) {
       const token = getToken();
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -36,7 +36,12 @@ axiosConfig.interceptors.request.use(
     return config;
   },
   (err) => {
-    return Promise.reject(err);
+    const errorResponse = {
+      data: err.response.data,
+      status: err.response.status,
+      headers: err.response.headers,
+    };
+    return Promise.reject(errorResponse);
   }
 );
 

@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { forwardRef } from 'react';
 
-const Input = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const Input = forwardRef((props, ref) => {
+  /**
+   * @param name
+   * @param type
+   * @param placeHolder
+   */
 
-export default Input
+  const { placeHolder, name, type } = props; // get props
+  // custom input
+  return <input ref={ref} name={name} placeholder={placeHolder} type={type} />;
+});
+
+export default Input;

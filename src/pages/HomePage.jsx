@@ -6,22 +6,33 @@ import { useNavigate } from 'react-router-dom';
 /* Replace for search page */
 
 const HomePage = () => {
-  
+  const navigate = useNavigate(); // navigate define
   useEffect(() => {
+    /** getCurrentUser */
+    const fetchData = async () => {
+      try {
+        const { data } = await getCurrentUser();
+        console.log('current user', data);
+      } catch (error) {
+        if (error.status === 403) navigate('/signin');
+      }
+    };
+    fetchData();
+
     /** getPosts */
 
-    /** getFollowingUsers by userId 
+    /** getFollowingUsers by userId
      * using current userId
-    */
+     */
 
-    /** getPostsByFollowingId 
+    /** getPostsByFollowingId
      * -> users that current user are following
      * */
-  }, [])
+  }, []);
 
   return (
-    <div>
-      <p>Home page the main</p>
+    <div className=''>
+      <p className='text-3xl font-bold underline'>Home page the main</p>
     </div>
   );
 };
