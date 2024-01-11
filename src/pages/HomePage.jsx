@@ -31,7 +31,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className=''>
+    <div className='container'>
       <p className='text-3xl font-bold underline'>Home page the main</p>
     </div>
   );
