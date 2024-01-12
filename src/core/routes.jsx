@@ -14,6 +14,16 @@ const lazyLoading = (pageName) => {
 };
 
 const router = createBrowserRouter([
+  /** separate Sign in route */
+  {
+    path: 'signin',
+    element: lazyLoading('LoginPage'),
+  },
+  /** separate Sign up route */
+  {
+    path: 'signup',
+    element: lazyLoading('SignUpPage'),
+  },
   {
     path: '/',
     element: <Layout />,
@@ -22,14 +32,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <ProtectedRoute isAuth={true}>{lazyLoading('HomePage')}</ProtectedRoute>,
-      },
-      {
-        path: 'signin',
-        element: lazyLoading('LoginPage'),
-      },
-      {
-        path: 'signup',
-        element: lazyLoading('SignUpPage'),
       },
       {
         path: 'test-upload',
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
 //
 
 const AppRoutes = ({ isAuth }) => {
-  return <RouterProvider router={router}/>;
+  return <RouterProvider router={router} />;
 };
 
 export default AppRoutes;
