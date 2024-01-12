@@ -62,7 +62,7 @@ const SignInPage = () => {
         className="shadow-md rounded px-8 py-6 flex flex-col w-[500px] translate-y-[50%]"
         onSubmit={submitHandler}
       >
-        <h1 className="mb-4 font-bold">Hello</h1>
+        <h1 className="mb-4 font-semibold text-center text-xl">Hello</h1>
         <div className="flex flex-col gap-4 mb-4">
           {inputProps.map((i, index) => (
             <Input {...i.props} ref={i.ref} key={index} />
