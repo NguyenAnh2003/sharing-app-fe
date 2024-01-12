@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from '../components/layouts/Layout';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import ProtectedRoute from '../libs/utils/ProtectedRoute';
 
 const lazyLoading = (pageName) => {
@@ -44,6 +44,9 @@ const router = createBrowserRouter([
 //
 
 const AppRoutes = ({ isAuth }) => {
+  useEffect(() => {
+    console.log({ isAuth });
+  }, [isAuth]);
   return <RouterProvider router={router} />;
 };
 
