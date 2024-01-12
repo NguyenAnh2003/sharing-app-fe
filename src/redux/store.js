@@ -8,7 +8,4 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const composedEnhancers = composeWithDevTools();
 
 // create store (storage)
-export const store = createStore(
-  rootReducer,
-  composedEnhancers
-);
+export const store = createStore(rootReducer, composedEnhancers);

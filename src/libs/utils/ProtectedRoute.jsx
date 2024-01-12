@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
-const ProtectedRoute = ({children}) => {
+const ProtectedRoute = ({ isAuth, children }) => {
+  const location = useLocation();
   /**
    * Route used for authenticated route
    * protect all route in app
    */
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  if (isAuth === false)
+    return <Navigate to={'/signin'} state={{ from: location?.pathname }} replace />;
+  return children;
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;

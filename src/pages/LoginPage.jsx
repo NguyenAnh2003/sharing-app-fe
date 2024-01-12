@@ -4,7 +4,6 @@ import { login, setToken } from '../libs';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-
 const SignInPage = () => {
   const navigate = useNavigate();
   /** useForm */

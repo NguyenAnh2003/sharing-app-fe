@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from './components/layouts/Layout';
+import Layout from '../components/layouts/Layout';
 import { lazy, Suspense } from 'react';
+import ProtectedRoute from '../libs/utils/ProtectedRoute';
 
 const lazyLoading = (pageName) => {
-  const LazyPage = lazy(() => import(`./pages/${pageName}.jsx`));
+  const LazyPage = lazy(() => import(`../pages/${pageName}.jsx`));
 
   return (
     <Suspense fallback="Loading...">
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: lazyLoading('HomePage'),
+        element: <ProtectedRoute isAuth={true}>{lazyLoading('HomePage')}</ProtectedRoute>,
       },
       {
         path: 'signin',
@@ -40,8 +41,8 @@ const router = createBrowserRouter([
 
 //
 
-const AppRoutes = () => {
-  return <RouterProvider router={router} />;
+const AppRoutes = ({ isAuth }) => {
+  return <RouterProvider router={router}/>;
 };
 
 export default AppRoutes;

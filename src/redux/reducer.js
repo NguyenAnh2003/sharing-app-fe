@@ -2,11 +2,9 @@ import { CONSTANTS } from './constants';
 
 const initValue = {
   /** init user state */
-  user: {
-    /** Storing currentUserId */
-    currentUser: {
-      userId: '',
-    },
+  /** Storing currentUserId */
+  currentUser: {
+    userId: '',
   },
 };
 

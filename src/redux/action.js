@@ -1,4 +1,4 @@
-import { CONSTANTS } from "./constants";
+import { CONSTANTS } from './constants';
 /** user action */
 export const saveCurrentUser = (data) => {
   return {
@@ -6,4 +6,3 @@ export const saveCurrentUser = (data) => {
     payload: data,
   };
 };
-
