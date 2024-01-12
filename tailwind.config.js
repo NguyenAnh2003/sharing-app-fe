@@ -4,9 +4,12 @@ export default {
   theme: {
     colors: {
       primary: '#fdf6e2',
+      btn: '#000'
     },
     textColor: {
-      subtitle: '#9c9c9c'
+      subtitle: '#9c9c9c',
+      primary: '#000',
+      btn: '#fff'
     },
     extend: {},
   },

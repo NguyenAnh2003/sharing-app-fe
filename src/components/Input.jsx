@@ -10,7 +10,7 @@ const Input = forwardRef((props, ref) => {
   const { placeHolder, name, type } = props; // get props
   // custom input
   return (
-    <div className="relative mb-3" data-te-input-wrapper-init>
+    <div>
       <input
         name={name}
         ref={ref}

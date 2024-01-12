@@ -34,15 +34,20 @@ const SignInPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data, status } = await login(gmail.current.value, password.current.value);
-      console.log('response', data);
-      /** Store access token in header **/
-      if (status === 200) {
-        setToken(data.accessToken);
-        toast.success('Login sucessfully');
-        navigate('/');
+      if (gmail.current.value === '' || password.current.value === '') {
+        toast.error('No value provided');
+        return;
+      } else {
+        const { data, status } = await login(gmail.current.value, password.current.value);
+        console.log('response', data);
+        /** Store access token in header **/
+        if (status === 200) {
+          setToken(data.accessToken);
+          toast.success('Login sucessfully');
+          navigate('/');
+        }
+        /** Store current user info in state*/
       }
-      /** Store current user info in state*/
     } catch (error) {
       /* Validate app here use error status to check */
       console.log(error);
@@ -57,13 +62,15 @@ const SignInPage = () => {
         className="shadow-md rounded px-8 py-6 flex flex-col w-[500px] translate-y-[50%]"
         onSubmit={submitHandler}
       >
-        <h1 className='mb-4 font-bold'>Hello</h1>
-        {inputProps.map((i, index) => (
-          <Input {...i.props} ref={i.ref} key={index} />
-        ))}
-        <button className="font-semibold py-2 px-4 rounded" type="button peer">
-          Sign in
-        </button>
+        <h1 className="mb-4 font-bold">Hello</h1>
+        <div className="flex flex-col gap-4 mb-4">
+          {inputProps.map((i, index) => (
+            <Input {...i.props} ref={i.ref} key={index} />
+          ))}
+          <button className="font-semibold py-2 px-4 rounded bg-btn text-btn" type="submit">
+            Sign in
+          </button>
+        </div>
         <Link to={'/signup'} className="text-subtitle underline">
           Dont have account?
         </Link>
