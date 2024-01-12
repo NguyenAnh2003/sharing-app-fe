@@ -2,17 +2,15 @@ import AppRoutes from './routes';
 import React, { useEffect } from 'react';
 /** Toaster simple setup */
 import { Toaster } from 'react-hot-toast';
+import { Provider } from 'react-redux';
+import { store } from './redux';
 
 /**
  * App info :
  * @NguyenAnh2003 author
- *
- * Save current user info in app
- * store current user info in state
  */
 
 function App() {
-  
   return (
     <>
       {/** Toaster applied for all page
@@ -20,7 +18,9 @@ function App() {
       */}
       <Toaster reverseOrder={false} position="top-right" />
       {/** App routes */}
-      <AppRoutes />
+      <Provider store={store}>
+        <AppRoutes />
+      </Provider>
     </>
   );
 }

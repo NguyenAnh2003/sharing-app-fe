@@ -1,14 +1,15 @@
 import React from 'react';
 
-const Button = ({ text }) => {
+const Button = forwardRef(({ props, ref }) => {
   /**
    * including spinner
    */
+  const { text } = props;
   return (
     <>
-      <button>{text}</button>
+      <button ref={ref}>{text}</button>
     </>
   );
-};
+});
 
 export default Button;
