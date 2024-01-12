@@ -7,9 +7,19 @@ const Input = forwardRef((props, ref) => {
    * @param placeHolder
    */
 
-  const { placeHolder, name, type } = props; // get props
+  const { placeHolder, name, type, label } = props; // get props
   // custom input
-  return <input ref={ref} name={name} placeholder={placeHolder} type={type} />;
+  return (
+    <div class="relative mb-3" data-te-input-wrapper-init>
+      <input
+        name={name}
+        ref={ref}
+        type={type}
+        class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary"
+        placeholder={placeHolder}
+      />
+    </div>
+  );
 });
 
 export default Input;
