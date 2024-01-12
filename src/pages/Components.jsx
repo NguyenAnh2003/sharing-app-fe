@@ -6,7 +6,6 @@ const Components = () => {
   const inputProps = {
     props: {
       name: 'input',
-      label: 'Input',
       placeHolder: 'Your Input',
       type: 'text',
     },
