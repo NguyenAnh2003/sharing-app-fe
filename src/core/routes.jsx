@@ -38,6 +38,10 @@ const router = createBrowserRouter([
         element: lazyLoading('HomePage'),
       },
       {
+        path: 'create-post',
+        element: lazyLoading('CreatePostPage'),
+      },
+      {
         path: 'test-upload',
         element: lazyLoading('UploadFile'),
       },

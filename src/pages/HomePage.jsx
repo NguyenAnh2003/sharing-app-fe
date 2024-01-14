@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { getCurrentUser } from '../libs/apis/auth.api';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { getAllPostsByUserId, getFollowersByUserId, getUserById } from '../libs';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,15 +14,20 @@ const HomePage = () => {
   const navigate = useNavigate(); // navigate define
   const dispatch = useDispatch(); // dispatch state
   const currentUser = useSelector((state) => state.currentUser.userId);
+  const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState();
+  const [followers, setFollowers] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await Promise.all([
-        getAllPostsByUserId(currentUser.userId),
-        getUserById(currentUser.userId),
-        getFollowersByUserId(currentUser.userId),
-      ]);
-      console.log(res);
+      const resPosts = await getAllPostsByUserId(currentUser.userId);
+      if (resPosts.status === 200) setPosts(resPosts.data);
+
+      const resUser = await getUserById(currentUser.userId);
+      if (resUser.status === 200) setUser(resUser.data);
+
+      const resFollowers = await getFollowersByUserId(currentUser.userId);
+      if (resFollowers.status === 200) setFollowers(resFollowers.data);
     };
     fetchData();
   }, [currentUser]);
@@ -45,6 +50,7 @@ const HomePage = () => {
   return (
     <div className="container">
       <p className="text-3xl font-bold underline">Home page the main</p>
+      {user && <Link to={'/create-post'}>Hello <strong>{user.name}</strong> Create your post</Link>}
     </div>
   );
 };
