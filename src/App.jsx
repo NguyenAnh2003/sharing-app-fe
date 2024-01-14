@@ -1,8 +1,7 @@
 import AppRoutes from './core/routes';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 /** Toaster simple setup */
 import { Toaster } from 'react-hot-toast';
-import { getCurrentUser } from './libs';
 import { useSelector } from 'react-redux';
 
 /**
@@ -12,6 +11,10 @@ import { useSelector } from 'react-redux';
 
 function App() {
   const currentUser = useSelector((state) => state.currentUser.userId);
+
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
 
   return (
     <>

@@ -15,6 +15,7 @@ const HomePage = () => {
   const dispatch = useDispatch(); // dispatch state
 
   useEffect(() => {
+    /** fetch user info direcly on Home page */
     const fetchUser = async () => {
       try {
         const { data, status } = await getCurrentUser();
@@ -27,6 +28,10 @@ const HomePage = () => {
     };
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    
+  }, [])
 
   return (
     <div className="container">
