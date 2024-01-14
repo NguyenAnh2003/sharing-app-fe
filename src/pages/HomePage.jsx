@@ -13,8 +13,21 @@ const HomePage = () => {
   /** init */
   const navigate = useNavigate(); // navigate define
   const dispatch = useDispatch(); // dispatch state
-  const currentUser = useSelector((state) => state.currentUser?.userId);
-  
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data, status } = await getCurrentUser();
+        if (status === 200) {
+          dispatch(saveCurrentUser(data));
+        }
+      } catch (error) {
+        navigate('/signin');
+      }
+    };
+    fetchUser();
+  }, []);
+
   return (
     <div className="container">
       <p className="text-3xl font-bold underline">Home page the main</p>

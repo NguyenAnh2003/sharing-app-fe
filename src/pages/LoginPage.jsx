@@ -52,7 +52,7 @@ const SignInPage = () => {
       /* Validate app here use error status to check */
       console.log(error);
       /** notify with error */
-      toast.error('Internal error');
+      toast.error(error.data);
     }
   };
 
