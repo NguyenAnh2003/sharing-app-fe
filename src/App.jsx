@@ -12,15 +12,6 @@ import { getCurrentUser } from './libs';
  */
 
 function App() {
-  const [auth, setAuth] = useState(false);
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data, status } = await getCurrentUser();
-      if (status === 200 && data) setAuth(true);
-      else setAuth(false);
-    };
-    fetchUser();
-  }, []);
   return (
     <>
       {/** Toaster applied for all page
@@ -29,7 +20,7 @@ function App() {
       <Toaster reverseOrder={false} position="top-right" />
       {/** App routes */}
       <Provider store={store}>
-        <AppRoutes isAuth={auth} />
+        <AppRoutes />
       </Provider>
     </>
   );

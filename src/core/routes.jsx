@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from '../components/layouts/Layout';
 import { lazy, Suspense, useEffect } from 'react';
-import ProtectedRoute from '../libs/utils/ProtectedRoute';
+import ProtectedRoute from '../core/ProtectedRoute';
 
 const lazyLoading = (pageName) => {
   const LazyPage = lazy(() => import(`../pages/${pageName}.jsx`));
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ProtectedRoute isAuth={true}>{lazyLoading('HomePage')}</ProtectedRoute>,
+        element: <ProtectedRoute>{lazyLoading('HomePage')}</ProtectedRoute>,
       },
       {
         path: 'test-upload',
@@ -48,10 +48,7 @@ const router = createBrowserRouter([
 
 //
 
-const AppRoutes = ({ isAuth }) => {
-  useEffect(() => {
-    console.log({ isAuth });
-  }, [isAuth]);
+const AppRoutes = () => {
   return <RouterProvider router={router} />;
 };
 
