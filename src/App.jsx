@@ -13,7 +13,7 @@ function App() {
   const currentUser = useSelector((state) => state.currentUser.userId);
 
   useEffect(() => {
-    console.log(currentUser);
+    console.log('App contains', currentUser);
   }, [currentUser]);
 
   return (

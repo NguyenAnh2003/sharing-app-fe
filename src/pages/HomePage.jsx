@@ -13,6 +13,7 @@ const HomePage = () => {
   /** init */
   const navigate = useNavigate(); // navigate define
   const dispatch = useDispatch(); // dispatch state
+  const currentUser = useSelector((state) => state.currentUser.userId);
 
   useEffect(() => {
     /** fetch user info direcly on Home page */
@@ -23,15 +24,24 @@ const HomePage = () => {
           dispatch(saveCurrentUser(data));
         }
       } catch (error) {
-        navigate('/signin');
+        if (error) navigate('/signin');
       }
     };
     fetchUser();
   }, []);
 
   useEffect(() => {
-    
-  }, [])
+    const fetchPosts = async () => {
+      try {
+        console.log(currentUser.userId);
+        const { data, status } = await getAllPostsByUserId(currentUser.userId);
+        if (status === 200) console.log(data);
+      } catch (error) {
+        console.error(error.data);
+      }
+    };
+    fetchPosts();
+  }, [currentUser]);
 
   return (
     <div className="container">
