@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { getCurrentUser } from '../libs/apis/auth.api';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { getAllPostsByUserId } from '../libs';
+import { getAllPostsByUserId, getFollowersByUserId, getUserById } from '../libs';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveCurrentUser } from '../redux';
 
@@ -14,6 +14,18 @@ const HomePage = () => {
   const navigate = useNavigate(); // navigate define
   const dispatch = useDispatch(); // dispatch state
   const currentUser = useSelector((state) => state.currentUser.userId);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await Promise.all([
+        getAllPostsByUserId(currentUser.userId),
+        getUserById(currentUser.userId),
+        getFollowersByUserId(currentUser.userId),
+      ]);
+      console.log(res);
+    };
+    fetchData();
+  }, [currentUser]);
 
   useEffect(() => {
     /** fetch user info direcly on Home page */
@@ -29,19 +41,6 @@ const HomePage = () => {
     };
     fetchUser();
   }, []);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        console.log(currentUser.userId);
-        const { data, status } = await getAllPostsByUserId(currentUser.userId);
-        if (status === 200) console.log(data);
-      } catch (error) {
-        console.error(error.data);
-      }
-    };
-    fetchPosts();
-  }, [currentUser]);
 
   return (
     <div className="container">
