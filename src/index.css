@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 @layer components {
-  .container {
-    @apply mx-5 my-5;
-  }
+  /* .container {
+    @apply mx-5 my-5 w-full;
+  } */
 }
 
 @layer base {
   body {
-    @apply bg-primary;
+    @apply bg-primary w-full;
   }
 }

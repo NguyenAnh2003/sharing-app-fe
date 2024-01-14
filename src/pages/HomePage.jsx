@@ -61,16 +61,24 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container-2xl mx-5">
       <p className="text-3xl font-bold underline">Home page</p>
-      {/** greeting user */}
-      {user && (
-        <Link to={'/create-post'}>
-          Hello <strong>{user.name}</strong> Create your post
-        </Link>
-      )}
-      {/** list of followers */}
-      {/** list of posts */}
+      {/** grid layout 3 */}
+      <div className="grid grid-cols-3 gap-4">
+        <p>Hello</p>
+        <>
+          {/** greeting user */}
+          {user && (
+            <Link to={'/create-post'}>
+              Hello <strong>{user.name}</strong> Create your post
+            </Link>
+          )}
+
+          {/** list of posts */}
+        </>
+        {/** list of followers */}
+        <div>Followers</div>
+      </div>
     </div>
   );
 };
