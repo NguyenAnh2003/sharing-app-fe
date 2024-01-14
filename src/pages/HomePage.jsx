@@ -20,14 +20,27 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const resPosts = await getAllPostsByUserId(currentUser.userId);
-      if (resPosts.status === 200) setPosts(resPosts.data);
+      try {
+        /** posts api */
+        await getAllPostsByUserId(currentUser.userId).then(({ data, status }) => {
+          if (status === 200) {
+            setPosts(data);
+          }
+        });
 
-      const resUser = await getUserById(currentUser.userId);
-      if (resUser.status === 200) setUser(resUser.data);
+        /** user api */
+        await getUserById(currentUser.userId).then(({ data, status }) => {
+          if (status === 200) setUser(data);
+          toast.success('Get user info succes');
+        });
 
-      const resFollowers = await getFollowersByUserId(currentUser.userId);
-      if (resFollowers.status === 200) setFollowers(resFollowers.data);
+        /** followers api */
+        await getFollowersByUserId(currentUser.userId).then(({ data, status }) => {
+          if (status === 200) setFollowers(data);
+        });
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchData();
   }, [currentUser]);
@@ -49,8 +62,15 @@ const HomePage = () => {
 
   return (
     <div className="container">
-      <p className="text-3xl font-bold underline">Home page the main</p>
-      {user && <Link to={'/create-post'}>Hello <strong>{user.name}</strong> Create your post</Link>}
+      <p className="text-3xl font-bold underline">Home page</p>
+      {/** greeting user */}
+      {user && (
+        <Link to={'/create-post'}>
+          Hello <strong>{user.name}</strong> Create your post
+        </Link>
+      )}
+      {/** list of followers */}
+      {/** list of posts */}
     </div>
   );
 };
