@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { getAllPostsByUserId, getFollowersByUserId, getUserById } from '../libs';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveCurrentUser } from '../redux';
+import PostCard from '../components/cards/PostCard';
 
 /* Replace for search page */
 
@@ -31,7 +32,7 @@ const HomePage = () => {
         /** user api */
         await getUserById(currentUser.userId).then(({ data, status }) => {
           if (status === 200) setUser(data);
-          toast.success('Get user info succes');
+          toast.success('Hi again!!');
         });
 
         /** followers api */
@@ -43,6 +44,7 @@ const HomePage = () => {
       }
     };
     fetchData();
+    console.log(posts);
   }, [currentUser]);
 
   useEffect(() => {
@@ -61,12 +63,12 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="container-2xl mx-5">
+    <div className="container-2xl mx-10">
       <p className="text-3xl font-bold underline">Home page</p>
       {/** grid layout 3 */}
       <div className="grid grid-cols-3 gap-4">
         <p>Hello</p>
-        <>
+        <div>
           {/** greeting user */}
           {user && (
             <Link to={'/create-post'}>
@@ -75,9 +77,15 @@ const HomePage = () => {
           )}
 
           {/** list of posts */}
-        </>
+          <div className='flex flex-col gap-4'>
+            {posts.map((i, idx) => (
+              /** post Data */
+              <PostCard key={idx} postId={i.id} />
+            ))}
+          </div>
+        </div>
         {/** list of followers */}
-        <div>Followers</div>
+        <h1 className="text-xl font-semibold underline text-end">Followers</h1>
       </div>
     </div>
   );
