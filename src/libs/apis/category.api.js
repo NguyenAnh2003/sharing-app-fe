@@ -5,3 +5,8 @@ export const getCategories = () => {
   const res = getHTTP();
   return res;
 };
+
+export const getCategoryById = (categoryId) => {
+  const res = getHTTP(`category/${categoryId}`);
+  return res;
+};

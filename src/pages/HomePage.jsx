@@ -32,7 +32,6 @@ const HomePage = () => {
         /** user api */
         await getUserById(currentUser.userId).then(({ data, status }) => {
           if (status === 200) setUser(data);
-          toast.success('Hi again!!');
         });
 
         /** followers api */
@@ -77,7 +76,7 @@ const HomePage = () => {
           )}
 
           {/** list of posts */}
-          <div className='flex flex-col gap-4'>
+          <div className="flex flex-col gap-4">
             {posts.map((i, idx) => (
               /** post Data */
               <PostCard key={idx} postId={i.id} />
