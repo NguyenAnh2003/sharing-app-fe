@@ -16,14 +16,19 @@ export const getLikeByUserIdAndPostId = (userId, postId) => {
   return res;
 };
 
+export const getLikesByPostId = (postId) => {
+  const res = getHTTP(`likes/${postId}`);
+  return res;
+};
+
 export const createLike = (userId, postId) => {
   /** create specific like with userId and postId */
-  const res = postHTTP('', { userId, postId });
+  const res = postHTTP('likes/create', { userId, postId });
   return res;
 };
 
 export const deleteLike = (userId, postId) => {
   /** delete specific like entity w userId & postId */
-  const res = deleteHTTP(``);
+  const res = deleteHTTP(`likes/p/${postId}/u/${userId}/delete`);
   return res;
 };

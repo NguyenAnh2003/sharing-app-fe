@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getDataByPostId } from '../../libs';
+import { getDataByPostId, getUserById } from '../../libs';
 
 /**
  *
@@ -9,7 +9,8 @@ const PostCard = React.memo(({ postId }) => {
   /**
    * Post data ()
    * @param userId
-   * @param categoryId, category
+   * @param categoryId
+   * @param category
    * @param title
    * @param description
    * @param imageURL
@@ -23,7 +24,12 @@ const PostCard = React.memo(({ postId }) => {
       if (status === 200) setPostData(data);
       console.log(data);
     };
+
+    /** call */
     fetchDataa();
+
+    console.log(postData); //
+
     /** remove postData */
     return () => {
       setPostData({});

@@ -8,7 +8,7 @@
 
 import { postHTTP } from '../../configs/api.config';
 
-export const uploadFile = async (url, formData) => {
-  const res = await postHTTP(url, formData);
+export const uploadFile = async (formData) => {
+  const res = await postHTTP('/upload', formData);
   return res;
 };
