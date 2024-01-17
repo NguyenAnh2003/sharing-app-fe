@@ -23,6 +23,16 @@ const PostCard = React.memo(({ postId }) => {
 
   useEffect(() => {
     const fetchDataa = async () => {
+      /**
+       * @param postData
+       * @param userData
+       * @param categoryData
+       * @param likeData
+       * @param saveData
+       * @param commentData
+       * -> using Promise.all()
+       */
+      
       const { data, status } = await getDataByPostId(postId);
       if (status === 200 && data) {
         setPostData(data);
