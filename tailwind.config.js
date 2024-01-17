@@ -4,7 +4,8 @@ export default {
   theme: {
     colors: {
       primary: '#fdf6e2',
-      btn: '#000'
+      btn: '#000',
+      card: '#f7e8bd'
     },
     textColor: {
       subtitle: '#9c9c9c',

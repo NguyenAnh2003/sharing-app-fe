@@ -62,7 +62,7 @@ const PostCard = React.memo(({ postId }) => {
     postData && (
       <div>
         {/** post content */}
-        <div className="border border-gray-400 lg:border-gray-400 bg-white p-4 flex flex-col justify-between leading-normal">
+        <div className="border border-gray-400 lg:border-gray-400 bg-card p-4 flex flex-col justify-between leading-normal">
           <div className="mb-8">
             <div className="flex flex-row items-center gap-5 mb-3">
               <div className="text-gray-900 font-bold text-xl">{postData.title}</div>
