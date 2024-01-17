@@ -46,6 +46,8 @@ const PostCard = React.memo(({ postId }) => {
     /** call */
     fetchDataa();
 
+    /** validate user info with custom edit */
+
     /** remove postData */
     return () => {
       setPostData({});
@@ -58,12 +60,25 @@ const PostCard = React.memo(({ postId }) => {
   return (
     postData && (
       <div>
-        <h1 className="text-xl font-semibold underline">{postData.title}</h1>
-        <p>{postData.description}</p>
-        {/** user data */}
-        <p>{userData.name}</p>
-        {/** category data */}
-        <p>{categoryData.category}</p>
+        {/** post content */}
+        <div class="border border-gray-400 lg:border-gray-400 bg-white p-4 flex flex-col justify-between leading-normal">
+          <div class="mb-8">
+            <div className="flex flex-row items-center gap-5 mb-3">
+              <div class="text-gray-900 font-bold text-xl">{postData.title}</div>
+              {/** category */}
+              <p class="text-primary font-semibold">{categoryData.category}</p>
+            </div>
+            <p class="text-gray-700 text-base">{postData.description}</p>
+            {/** post image */}
+            <img className='w-full mt-3' src={postData.imageURL} alt={postData.id} />
+          </div>
+          <div class="flex items-center">
+            <img class="w-10 h-10 rounded-full mr-4" src={userData.imageURL} alt={userData.name} />
+            <div class="text-sm">
+              <p class="text-primary font-semibold">{userData.name}</p>
+            </div>
+          </div>
+        </div>
       </div>
     )
   );

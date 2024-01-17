@@ -67,7 +67,7 @@ const SignInPage = () => {
           {inputProps.map((i, index) => (
             <Input {...i.props} ref={i.ref} key={index} />
           ))}
-          <button className="font-semibold py-2 px-4 rounded bg-btn text-btn" type="submit">
+          <button className="font-semibold py-2 px-4 rounded bg-btn text-white" type="submit">
             Sign in
           </button>
         </div>

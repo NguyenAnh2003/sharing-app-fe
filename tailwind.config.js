@@ -9,7 +9,7 @@ export default {
     textColor: {
       subtitle: '#9c9c9c',
       primary: '#000',
-      btn: '#fff'
+      white: '#fff'
     },
     extend: {},
   },

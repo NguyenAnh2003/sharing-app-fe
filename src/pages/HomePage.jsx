@@ -71,12 +71,16 @@ const HomePage = () => {
           {/** greeting user */}
           {user && (
             <Link to={'/create-post'}>
-              Hello <strong>{user.name}</strong> Create your post
+              <div className="p-5 text-center bg-btn">
+                <p className='font-semibold text-white'>
+                  Hello <strong>{user.name}</strong> Create your post
+                </p>
+              </div>
             </Link>
           )}
 
           {/** list of posts */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mt-5">
             {posts.map((i, idx) => (
               /** post Data */
               <PostCard key={idx} postId={i.id} />
