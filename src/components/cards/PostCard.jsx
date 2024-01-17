@@ -1,10 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { getCategoryById, getDataByPostId, getUserById } from '../../libs';
 
-/**
- *
- */
-
 const PostCard = React.memo(({ postId }) => {
   console.log(postId);
   /**
