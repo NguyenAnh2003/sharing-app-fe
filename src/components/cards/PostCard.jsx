@@ -116,7 +116,7 @@ const PostCard = React.memo(({ postId }) => {
             {/** post image */}
             <img className="w-full mt-3" src={postData.imageURL} alt={postData.id} />
           </div>
-          <Link to={`/account/${postData.userId}`} className="flex items-center">
+          <Link to={`/account/${postData.userId}`} className="flex items-center hover:bg-primary p-2 duration-100">
             {/** user image setup with userData */}
             <img
               className="w-10 h-10 rounded-full mr-2"
