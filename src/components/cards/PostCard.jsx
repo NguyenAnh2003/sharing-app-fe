@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getCategoryById, getDataByPostId, getUserById } from '../../libs';
+import {
+  getCategoryById,
+  getCommentsByPostId,
+  getDataByPostId,
+  getLikesByPostId,
+  getSavesByPostId,
+  getUserById,
+} from '../../libs';
 import { useSelector } from 'react-redux';
 
 const PostCard = React.memo(({ postId }) => {
@@ -34,12 +41,32 @@ const PostCard = React.memo(({ postId }) => {
         setPostData(data);
 
         /** setCategory data, setUser, setLikes, saves, comments */
-        Promise.all([getCategoryById(data.categoryId), getUserById(data.userId)]).then(
-          ([{ data: catData, status: cateStatus }, { data: userData, status: userStatus }]) => {
-            if (cateStatus === 200 && userStatus === 200) {
+        Promise.all([
+          getCategoryById(data.categoryId), // category
+          getUserById(data.userId), // user data
+          getLikesByPostId(data.id), // category
+          getSavesByPostId(data.id), // save data
+          getCommentsByPostId(data.id), // comments data
+        ]).then(
+          ([
+            /** raw define (too exhausted) */
+            { data: cateData, status: cateStatus },
+            { data: userData, status: userStatus },
+            { data: likesData, status: likesStatus },
+            { data: saveData, status: saveStatus },
+            { data: commentData, status: commentStatus },
+          ]) => {
+            if (
+              cateStatus === 200 &&
+              userStatus === 200 &&
+              likesStatus === 200 &&
+              saveStatus === 200 &&
+              commentStatus === 200
+            ) {
+              console.log({ likesData, saveData, commentData });
               setUserData(userData); // set user data for user info part
               setPostData((prev) => {
-                return { ...prev, username: userData.name, category: catData.category };
+                return { ...prev, username: userData.name, category: cateData.category };
               });
             }
           }
@@ -53,7 +80,7 @@ const PostCard = React.memo(({ postId }) => {
     /** remove postData */
     return () => {
       setPostData({}); //
-      setUserData({})
+      setUserData({});
     };
   }, [postId, currentUser]);
 
