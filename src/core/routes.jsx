@@ -37,9 +37,18 @@ const router = createBrowserRouter([
         index: true,
         element: lazyLoading('HomePage'),
       },
+      /** post page */
       {
         path: 'create-post',
         element: lazyLoading('CreatePostPage'),
+      },
+      {
+        path: 'update-post/:postId',
+        element: lazyLoading('UpdatePostPage'),
+      },
+      {
+        path: 'account/:userId',
+        element: lazyLoading('AccountPage'),
       },
       {
         path: 'test-upload',
