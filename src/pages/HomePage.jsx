@@ -7,6 +7,7 @@ import { getAllPostsByUserId, getFollowersByUserId, getUserById } from '../libs'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveCurrentUser } from '../redux';
 import PostCard from '../components/cards/PostCard';
+import FollwingUserCard from '../components/cards/FollwingUserCard';
 
 /* Replace for search page */
 
@@ -17,27 +18,35 @@ const HomePage = () => {
   const currentUser = useSelector((state) => state.currentUser.userId);
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState();
-  const [followers, setFollowers] = useState();
+  const [followers, setFollowers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      /**
+       * @param posts data
+       * @param user data
+       * @param followers data
+       * -> using Promise all
+       */
       try {
-        /** posts api */
-        await getAllPostsByUserId(currentUser.userId).then(({ data, status }) => {
-          if (status === 200) {
-            setPosts(data);
+        Promise.all([
+          getAllPostsByUserId(currentUser.userId),
+          getUserById(currentUser.userId),
+          getFollowersByUserId(currentUser.userId),
+        ]).then(
+          ([
+            { data: postsData, status: postsStatus },
+            { data: userData, status: userStatus },
+            { data: followersData, status: followersStatus },
+          ]) => {
+            if (postsStatus === 200 && userStatus === 200 && followersStatus === 200) {
+              console.log({ postsData, userData, followersData });
+              setPosts(postsData);
+              setUser(userData);
+              setFollowers(followersData);
+            }
           }
-        });
-
-        /** user api */
-        await getUserById(currentUser.userId).then(({ data, status }) => {
-          if (status === 200) setUser(data);
-        });
-
-        /** followers api */
-        await getFollowersByUserId(currentUser.userId).then(({ data, status }) => {
-          if (status === 200) setFollowers(data);
-        });
+        );
       } catch (error) {
         console.error(error);
       }
@@ -67,12 +76,12 @@ const HomePage = () => {
       {/** grid layout 3 */}
       <div className="grid grid-cols-3 gap-4">
         <p>Hello</p>
-        <div>
+        <div className=''>
           {/** greeting user */}
           {user && (
             <Link to={'/create-post'}>
               <div className="p-5 text-center bg-btn">
-                <p className='font-semibold text-white'>
+                <p className="font-semibold text-white">
                   Hello <strong>{user.name}</strong> Create your post
                 </p>
               </div>
@@ -88,7 +97,14 @@ const HomePage = () => {
           </div>
         </div>
         {/** list of followers */}
-        <h1 className="text-xl font-semibold underline text-end">Followers</h1>
+        <div className="flex flex-col gap-4">
+          <h1 className="text-xl font-semibold underline text-center">Followers</h1>
+          <div className="flex flex-col gap-3">
+            {followers.map((i, idx) => (
+              <FollwingUserCard key={idx} followingUserId={i.followingId} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
