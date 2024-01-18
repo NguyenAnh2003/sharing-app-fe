@@ -42,14 +42,14 @@ const PostCard = React.memo(({ postId }) => {
 
         /** setCategory data, setUser, setLikes, saves, comments */
         Promise.all([
-          getCategoryById(data.categoryId), // category
+          getCategoryById(data.categoryId), // category data
           getUserById(data.userId), // user data
-          getLikesByPostId(data.id), // category
+          getLikesByPostId(data.id), // category data
           getSavesByPostId(data.id), // save data
           getCommentsByPostId(data.id), // comments data
         ]).then(
           ([
-            /** raw define (too exhausted) */
+            /** raw define (too exhausted) sequentially */
             { data: cateData, status: cateStatus },
             { data: userData, status: userStatus },
             { data: likesData, status: likesStatus },
@@ -83,6 +83,10 @@ const PostCard = React.memo(({ postId }) => {
       setUserData({});
     };
   }, [postId, currentUser]);
+
+  /** like submit handler */
+
+  /** save submit handler */
 
   return (
     postData && (
