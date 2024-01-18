@@ -16,7 +16,6 @@ const PostCard = React.memo(({ postId }) => {
    */
   const [postData, setPostData] = useState({});
   const [userData, setUserData] = useState({});
-  const [categoryData, setCategoryData] = useState({});
 
   useEffect(() => {
     const fetchDataa = async () => {
@@ -33,17 +32,18 @@ const PostCard = React.memo(({ postId }) => {
       const { data, status } = await getDataByPostId(postId);
       if (status === 200 && data) {
         setPostData(data);
-        const { data: userData, status: userStatus } = await getUserById(data.userId);
-        if (userStatus === 200 && data) {
-          setUserData(userData);
-        }
 
-        const { data: categoryData, status: categoryStatus } = await getCategoryById(
-          data.categoryId
+        /** setCategory data, setUser, setLikes, saves, comments */
+        Promise.all([getCategoryById(data.categoryId), getUserById(data.userId)]).then(
+          ([{ data: catData, status: cateStatus }, { data: userData, status: userStatus }]) => {
+            if (cateStatus === 200 && userStatus === 200) {
+              setUserData(userData); // set user data for user info part
+              setPostData((prev) => {
+                return { ...prev, username: userData.name, category: catData.category };
+              });
+            }
+          }
         );
-        if (categoryStatus === 200 && categoryData) {
-          setCategoryData(categoryData);
-        }
       }
     };
 
@@ -53,8 +53,6 @@ const PostCard = React.memo(({ postId }) => {
     /** remove postData */
     return () => {
       setPostData({}); //
-      setUserData({}); //
-      setCategoryData({}); //
     };
   }, [postId, currentUser]);
 
@@ -67,23 +65,24 @@ const PostCard = React.memo(({ postId }) => {
             <div className="flex flex-row items-center gap-5 mb-3">
               <div className="text-gray-900 font-bold text-xl">{postData.title}</div>
               {/** category */}
-              <p className="text-primary font-semibold">{categoryData.category}</p>
+              <p className="text-primary font-semibold">{postData.category}</p>
             </div>
             <p className="text-gray-700 text-base">{postData.description}</p>
             {/** post image */}
             <img className="w-full mt-3" src={postData.imageURL} alt={postData.id} />
           </div>
           <div className="flex items-center">
+            {/** user image setup with userData */}
             <img
               className="w-10 h-10 rounded-full mr-4"
               src={userData.imageURL}
               alt={userData.name}
             />
             <div className="text-sm">
-              <p className="text-primary font-semibold">{userData.name}</p>
+              <p className="text-primary font-semibold">{postData.username}</p>
             </div>
           </div>
-          {userData && userData.id === currentUser.userId ? <p>validate user</p> : <>nope</>}
+          {postData && postData.userId === currentUser.userId ? <p>validate user</p> : <>nope</>}
         </div>
       </div>
     )
