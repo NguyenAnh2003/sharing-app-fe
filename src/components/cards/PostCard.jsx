@@ -53,6 +53,7 @@ const PostCard = React.memo(({ postId }) => {
     /** remove postData */
     return () => {
       setPostData({}); //
+      setUserData({})
     };
   }, [postId, currentUser]);
 
