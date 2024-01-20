@@ -19,6 +19,7 @@ import { FaRegCommentAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import CommentModal from '../modals/CommentModal';
 
 const PostCard = React.memo(({ postId }) => {
   const currentUser = useSelector((state) => state.currentUser.userId);
@@ -40,6 +41,10 @@ const PostCard = React.memo(({ postId }) => {
   /** validate save and like */
   const [isLiked, setLiked] = useState(false);
   const [isSaved, setSaved] = useState(false);
+  /** open comment modal */
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const fetchDataa = async () => {
@@ -240,7 +245,8 @@ const PostCard = React.memo(({ postId }) => {
               {currentLikes}
             </div>
             {/** comment action */}
-            <FaRegCommentAlt size={20} className="cursor-pointer" />
+            <FaRegCommentAlt size={20} className="cursor-pointer" onClick={handleOpen} />
+            {open ? <CommentModal postId={postId} handleClose={handleClose} open={open} /> : <></>}
             {/** save validate with owner including create save and delete save*/}
             {isSaved === false ? (
               <BsFillSave2Fill
