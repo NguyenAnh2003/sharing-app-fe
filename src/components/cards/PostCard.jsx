@@ -8,10 +8,12 @@ import {
   getLikesByPostId,
   getSavesByPostId,
   getUserById,
+  savePostByUserIdAndPostId,
+  unSavePost,
 } from '../../libs';
 import { useSelector } from 'react-redux';
 import { CiEdit } from 'react-icons/ci';
-import { BsSave } from 'react-icons/bs';
+import { BsFillSave2Fill } from 'react-icons/bs';
 import { FaHeart } from 'react-icons/fa';
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -121,6 +123,15 @@ const PostCard = React.memo(({ postId }) => {
     }
   }, [currentUser, postId, postData]);
 
+  const currentLikes = useMemo(() => {
+    if (isLiked === true) return likesDataa.length + 1;
+    else {
+      if (likesDataa.length === 0) {
+        return 0;
+      } else likesDataa.length - 1;
+    }
+  }, [isLiked, likesDataa]);
+
   const deleteLikeHandler = useCallback(async () => {
     try {
       const { data, status } = await deleteLike(currentUser.userId, postData.id);
@@ -135,8 +146,20 @@ const PostCard = React.memo(({ postId }) => {
 
   /** save submit handler validate with owner*/
   const saveSubmitHandler = useCallback(async () => {
-    const { data, status } = await createLike(currentUser.userId, postData.id);
-    if (status === 200) console.log('like', data);
+    const { data, status } = await savePostByUserIdAndPostId(currentUser.userId, postData.id);
+    if (status === 200) {
+      setSaved(!isSaved);
+      console.log('like', data);
+    }
+  }, [currentUser, postId, postData]);
+
+  /** save submit handler validate with owner*/
+  const unsaveSubmitHandler = useCallback(async () => {
+    const { data, status } = await unSavePost(currentUser.userId, postData.id);
+    if (status === 204) {
+      setSaved(!isSaved);
+      console.log('like', data);
+    }
   }, [currentUser, postId, postData]);
 
   return (
@@ -200,13 +223,13 @@ const PostCard = React.memo(({ postId }) => {
                   style={{ fill: 'red' }}
                 />
               )}
-              {likesDataa.length}
+              {currentLikes}
             </div>
             {/** comment action */}
             <FaRegCommentAlt size={20} className="cursor-pointer" />
             {/** save validate with owner including create save and delete save*/}
             {postData && postData.userId !== currentUser.userId ? (
-              <BsSave size={20} className="cursor-pointer" onClick={saveSubmitHandler} />
+              <BsFillSave2Fill size={20} className="cursor-pointer" onClick={saveSubmitHandler} />
             ) : (
               <></>
             )}

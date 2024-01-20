@@ -4,7 +4,7 @@
  * get likes
  */
 
-import { getHTTP, postHTTP } from '../../configs/api.config';
+import { deleteHTTP, getHTTP, postHTTP } from '../../configs/api.config';
 
 export const getSavesByPostId = (postId) => {
   const res = getHTTP(`saves/p/${postId}`);
@@ -13,5 +13,11 @@ export const getSavesByPostId = (postId) => {
 
 export const savePostByUserIdAndPostId = (userId, postId) => {
   const res = postHTTP('saves/create', { userId, postId });
+  return res;
+};
+
+export const unSavePost = (userId, postId) => {
+  /** unsave by userId and postId */
+  const res = deleteHTTP(`/p/${postId}/u/${userId}/delete`);
   return res;
 };
