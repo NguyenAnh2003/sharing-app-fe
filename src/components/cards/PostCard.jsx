@@ -109,19 +109,21 @@ const PostCard = React.memo(({ postId }) => {
     };
   }, [postId, currentUser]);
 
+  /** like validation */
   useEffect(() => {
     const liked = likesDataa.some((x) => x.userId === currentUser.userId);
     if (liked === true) setLiked(true);
     else setLiked(false);
   }, [likesDataa, currentUser]);
 
+  /** saved validation */
   useEffect(() => {
     const saved = savesDataa.some((x) => x.userId === currentUser.userId);
     if (saved === true) setSaved(true);
     else setSaved(false);
   }, [savesDataa, currentUser]);
 
-  /** like validate */
+  /** currentLikes */
   const currentLikes = useMemo(() => {
     if (isLiked === false) {
       if (likesDataa.length === 0) return likesDataa.length;
