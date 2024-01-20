@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { followUser } from '../../libs';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const UserCard = React.memo(({ userId, username, avatarURL }) => {
   const currentUser = useSelector((state) => state.currentUser.userId);
@@ -20,7 +21,7 @@ const UserCard = React.memo(({ userId, username, avatarURL }) => {
   }, [userId, currentUser]);
 
   return (
-    <div className="flex flex-col bg-card py-4 px-6">
+    <div className="flex flex-col bg-card">
       <div class="overflow-hidden rounded-none">
         <img
           src={avatarURL}
@@ -30,12 +31,15 @@ const UserCard = React.memo(({ userId, username, avatarURL }) => {
         />
       </div>
       <div class="p-6">
-        <h4 class="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+        <Link
+          to={`account/${userId}`}
+          class="block underline font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased"
+        >
           {username}
-        </h4>
+        </Link>
       </div>
       {/** follow button */}
-      <div className='px-4'>
+      <div className="px-6 pb-6">
         <button
           onClick={followHandler}
           className="font-semibold py-2 px-4 w-full rounded bg-btn text-white"
