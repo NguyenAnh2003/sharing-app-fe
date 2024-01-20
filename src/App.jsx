@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 /** Toaster simple setup */
 import { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
+import { PrimeReactProvider } from 'primereact/api';
 
 /**
  * App info :
@@ -18,12 +19,14 @@ function App() {
 
   return (
     <>
-      {/** Toaster applied for all page
-      simple call toast.error() || toast.success()
-      */}
-      <Toaster reverseOrder={false} position="top-right" />
       {/** App routes */}
-      <AppRoutes />
+      <PrimeReactProvider>
+        <Toaster reverseOrder={false} position="top-right" />
+        {/** Toaster applied for all page
+        simple call toast.error() || toast.success()
+        */}
+        <AppRoutes />
+      </PrimeReactProvider>
     </>
   );
 }
