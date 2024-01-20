@@ -60,6 +60,7 @@ const CommentModal = ({ open, handleClose, postId }) => {
           setComments((prev) => {
             return [...prev, data];
           });
+          commentRef.current.value = ''
         }
       } else toast.error('Must not be empty');
     } catch (error) {

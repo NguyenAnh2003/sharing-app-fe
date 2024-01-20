@@ -14,6 +14,6 @@ export const createComment = (userId, postId, content) => {
 
 // delete
 export const deleteComment = (id) => {
-  const res = deleteHTTP(`/${id}/delete`);
+  const res = deleteHTTP(`comment/${id}/delete`);
   return res;
 };

@@ -5,7 +5,8 @@ export default {
     colors: {
       primary: '#fdf6e2',
       btn: '#000',
-      card: '#f7e8bd'
+      card: '#f7e8bd',
+      gray: '#333'
     },
     textColor: {
       subtitle: '#9c9c9c',
