@@ -12,7 +12,7 @@ import {
 import { useSelector } from 'react-redux';
 import { CiEdit } from 'react-icons/ci';
 import { BsSave } from 'react-icons/bs';
-import { SlLike } from 'react-icons/sl';
+import { FaHeart } from 'react-icons/fa';
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -102,6 +102,12 @@ const PostCard = React.memo(({ postId }) => {
     };
   }, [postId, currentUser]);
 
+  useEffect(() => {
+    const liked = likesDataa.some((x) => x.userId === currentUser.userId);
+    if (liked === true) setLiked(true);
+    else setLiked(false);
+  }, [likesDataa, currentUser]);
+
   /** like submit handler */
   const likeSubmitHandler = useCallback(async () => {
     try {
@@ -180,9 +186,14 @@ const PostCard = React.memo(({ postId }) => {
             <div className="flex flex-row gap-2">
               {/** like button include create like and delete */}
               {isLiked === false ? (
-                <SlLike size={20} className="cursor-pointer" onClick={likeSubmitHandler} />
+                <FaHeart
+                  size={20}
+                  className="cursor-pointer"
+                  onClick={likeSubmitHandler}
+                  style={{ fill: 'black' }}
+                />
               ) : (
-                <SlLike
+                <FaHeart
                   size={20}
                   className="cursor-pointer"
                   onClick={deleteLikeHandler}
