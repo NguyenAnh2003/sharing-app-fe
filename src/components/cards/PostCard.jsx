@@ -71,6 +71,11 @@ const PostCard = React.memo(({ postId }) => {
               saveStatus === 200
             ) {
               console.log({ likesData, saveData });
+              /** set like data */
+              setLikes(likesData);
+              /** set save data */
+              setSaves(saveData);
+              //
               setUserData(userData); // set user data for user info part
               setPostData((prev) => {
                 return { ...prev, username: userData.name, category: cateData.category };
@@ -100,12 +105,28 @@ const PostCard = React.memo(({ postId }) => {
       <div>
         {/** post content */}
         <div className="border border-gray-400 lg:border-gray-400 bg-card p-4">
+          <>
+            <Link
+              to={`/account/${postData.userId}`}
+              className="flex items-center hover:bg-primary p-2 duration-300"
+            >
+              {/** user image setup with userData */}
+              <img
+                className="w-10 h-10 rounded-full mr-2"
+                src={userData.avatarURL}
+                alt={userData.name}
+              />
+              <div className="text-sm">
+                <p className="text-primary font-semibold">{postData.username}</p>
+              </div>
+            </Link>
+          </>
           <div className="mb-5">
             <div className="flex flex-row items-center gap-5 mb-2 justify-between">
               <div>
                 <div className="text-gray-900 font-bold text-xl">{postData.title}</div>
                 {/** category */}
-                <p className="text-primary font-semibold text-sm">{postData.category}</p>
+                <p className="inline-block bg-primary rounded-full px-2 text-sm font-semibold text-primary">{postData.category}</p>
               </div>
 
               {/** edit button */}
@@ -122,38 +143,24 @@ const PostCard = React.memo(({ postId }) => {
             <img className="w-full mt-3" src={postData.imageURL} alt={postData.id} />
           </div>
           {/** interact with post */}
-          <div classname="w-full flex flex-row">
+          <div classname="w-full flex flex-row justify-between">
             {/** like button */}
-            <button classname="cursor-pointer">
+            <button>
               <SlLike size={20} />
             </button>
             {/** save validate with owner */}
             {postData && postData.userId !== currentUser.userId ? (
-              <button classname="cursor-pointer ml-2">
+              <button>
                 <BsSave size={20} />
               </button>
             ) : (
               <></>
             )}
             {/** comment action */}
-            <button classname="cursor-pointer ml-4">
-              <FaRegCommentAlt size={20} />
+            <button>
+              <FaRegCommentAlt size={20} classname="inline-block" />
             </button>
           </div>
-          <Link
-            to={`/account/${postData.userId}`}
-            className="flex items-center hover:bg-primary p-2 duration-300"
-          >
-            {/** user image setup with userData */}
-            <img
-              className="w-10 h-10 rounded-full mr-2"
-              src={userData.avatarURL}
-              alt={userData.name}
-            />
-            <div className="text-sm">
-              <p className="text-primary font-semibold">{postData.username}</p>
-            </div>
-          </Link>
         </div>
       </div>
     )

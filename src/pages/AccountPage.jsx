@@ -31,9 +31,7 @@ const AccountPage = () => {
 
   return (
     <div>
-      <p className="text-3xl font-bold">
-        Account page <span>{user.name}</span>
-      </p>
+      <h1 className="text-3xl font-bold underline container mx-auto">{user.name}</h1>
     </div>
   );
 };
