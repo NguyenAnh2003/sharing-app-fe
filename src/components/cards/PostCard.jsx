@@ -147,8 +147,10 @@ const PostCard = React.memo(({ postId }) => {
       const { status } = await deleteLike(currentUser.userId, postData.id);
       if (status === 204) {
         setLiked(!isLiked);
-        setLikes((prev) => {return prev.filter((x) => x.userId !== currentUser.userId)})
-        console.log('delete like');
+        setLikes((prev) => {
+          return prev.filter((x) => x.userId !== currentUser.userId);
+        });
+        toast.success('Unliked this post');
       }
     } catch (error) {
       toast.error('Server error');
@@ -170,6 +172,7 @@ const PostCard = React.memo(({ postId }) => {
     if (status === 204) {
       setSaved(false);
       console.log('unsaved');
+      toast.success('Unsaved this post');
     }
   }, [currentUser, postId, postData]);
 
