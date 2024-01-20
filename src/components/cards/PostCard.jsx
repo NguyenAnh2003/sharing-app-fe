@@ -110,6 +110,12 @@ const PostCard = React.memo(({ postId }) => {
     else setLiked(false);
   }, [likesDataa, currentUser]);
 
+  useEffect(() => {
+    const saved = savesDataa.some((x) => x.userId === currentUser.userId);
+    if (saved === true) setSaved(true);
+    else setSaved(false);
+  }, [savesDataa, currentUser]);
+
   /** like submit handler */
   const likeSubmitHandler = useCallback(async () => {
     try {
@@ -127,17 +133,17 @@ const PostCard = React.memo(({ postId }) => {
     if (isLiked === true) return likesDataa.length + 1;
     else {
       if (likesDataa.length === 0) {
-        return 0;
+        return likesDataa.length;
       } else likesDataa.length - 1;
     }
   }, [isLiked, likesDataa]);
 
   const deleteLikeHandler = useCallback(async () => {
     try {
-      const { data, status } = await deleteLike(currentUser.userId, postData.id);
+      const { status } = await deleteLike(currentUser.userId, postData.id);
       if (status === 204) {
         setLiked(!isLiked);
-        console.log('delete like', data);
+        console.log('delete like');
       }
     } catch (error) {
       toast.error('Server error');
@@ -149,16 +155,16 @@ const PostCard = React.memo(({ postId }) => {
     const { data, status } = await savePostByUserIdAndPostId(currentUser.userId, postData.id);
     if (status === 200) {
       setSaved(!isSaved);
-      console.log('like', data);
+      console.log('saved', data);
     }
   }, [currentUser, postId, postData]);
 
   /** save submit handler validate with owner*/
   const unsaveSubmitHandler = useCallback(async () => {
-    const { data, status } = await unSavePost(currentUser.userId, postData.id);
+    const { status } = await unSavePost(currentUser.userId, postData.id);
     if (status === 204) {
-      setSaved(!isSaved);
-      console.log('like', data);
+      setSaved(false);
+      console.log('unsaved');
     }
   }, [currentUser, postId, postData]);
 
@@ -228,10 +234,20 @@ const PostCard = React.memo(({ postId }) => {
             {/** comment action */}
             <FaRegCommentAlt size={20} className="cursor-pointer" />
             {/** save validate with owner including create save and delete save*/}
-            {postData && postData.userId !== currentUser.userId ? (
-              <BsFillSave2Fill size={20} className="cursor-pointer" onClick={saveSubmitHandler} />
+            {isSaved === false ? (
+              <BsFillSave2Fill
+                size={20}
+                className="cursor-pointer"
+                style={{ fill: 'black' }}
+                onClick={saveSubmitHandler}
+              />
             ) : (
-              <></>
+              <BsFillSave2Fill
+                size={20}
+                className="cursor-pointer"
+                style={{ fill: 'red' }}
+                onClick={unsaveSubmitHandler}
+              />
             )}
           </div>
         </div>

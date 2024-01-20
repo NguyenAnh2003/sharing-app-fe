@@ -18,6 +18,6 @@ export const savePostByUserIdAndPostId = (userId, postId) => {
 
 export const unSavePost = (userId, postId) => {
   /** unsave by userId and postId */
-  const res = deleteHTTP(`/p/${postId}/u/${userId}/delete`);
+  const res = deleteHTTP(`saves/p/${postId}/u/${userId}/delete`);
   return res;
 };
