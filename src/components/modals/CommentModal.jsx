@@ -6,6 +6,7 @@ import Input from '../Input';
 import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
+import CommentCard from '../cards/CommentCard';
 
 const style = {
   width: 600,
@@ -31,7 +32,9 @@ const CommentModal = ({ open, handleClose, postId }) => {
     /** fetch data */
     const fetchData = async () => {
       const { data, status } = await getCommentsByPostId(postId);
-      if (status === 200) console.log('comments', data);
+      if (status === 200) {
+        setComments(data);
+      }
     };
 
     fetchData();
@@ -53,6 +56,10 @@ const CommentModal = ({ open, handleClose, postId }) => {
         );
         if (status === 200) {
           console.log('create comment', data);
+          /** add comment ent */
+          setComments((prev) => {
+            return [...prev, data];
+          });
         }
       } else toast.error('Must not be empty');
     } catch (error) {
@@ -88,7 +95,19 @@ const CommentModal = ({ open, handleClose, postId }) => {
                 className="cursor-pointer absolute top-2 right-14"
               />
             </div>
-            <div className="overflow-y-scroll h-full"></div>
+            <div className="overflow-y-scroll h-full">
+              {/** comment list */}
+              {comments.map((i, idx) => (
+                <CommentCard
+                  key={idx}
+                  commentId={i.id}
+                  userId={i.userId}
+                  postId={i.postId}
+                  content={i.content}
+                  setComments={setComments}
+                />
+              ))}
+            </div>
           </Box>
         </Fade>
       </Modal>

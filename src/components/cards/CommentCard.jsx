@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { deleteComment } from '../../libs';
 
-const CommentCard = React.memo(({ commentId, userId, postId, setComments }) => {
+const CommentCard = React.memo(({ commentId, userId, postId, content, setComments }) => {
   /** props
    * @prop commnetId -> id
    * @prop userId
@@ -9,8 +9,6 @@ const CommentCard = React.memo(({ commentId, userId, postId, setComments }) => {
    * @prop content
    * @prop setComments
    */
-
-  const [record, setRecord] = useState({}); // set comment entity
 
   /** delete handler */
   const deleteCommentHandler = useCallback(async () => {
@@ -26,7 +24,12 @@ const CommentCard = React.memo(({ commentId, userId, postId, setComments }) => {
     }
   }, [commentId]);
 
-  return <div></div>;
+  return (
+    <div className="cursor-pointer p-2">
+      <div className="underline">{userId}</div>
+      <p>{content}</p>
+    </div>
+  );
 });
 
 export default CommentCard;
