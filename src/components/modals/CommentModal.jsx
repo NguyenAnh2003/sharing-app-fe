@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getCommentsByPostId } from '../../libs';
 import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material';
+import { FaRegCommentAlt } from 'react-icons/fa';
 import Input from '../Input';
 
 const style = {
@@ -53,10 +54,13 @@ const CommentModal = ({ open, handleClose, postId }) => {
           },
         }}
       >
-        <Fade in={open} className='overflow-hidden'>
+        <Fade in={open} className="overflow-hidden">
           <Box sx={style}>
             {/** input */}
-            <Input name="text" type="text" placeHolder="Your expression" ref={commentRef} />
+            <div className='px-10 relative'>
+              <Input name="text" type="text" placeHolder="Your expression" ref={commentRef} />
+              <FaRegCommentAlt size={20} className="cursor-pointer absolute top-2 right-14" />
+            </div>
             <div className="overflow-y-scroll h-full"></div>
           </Box>
         </Fade>
