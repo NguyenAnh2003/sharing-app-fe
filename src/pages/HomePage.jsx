@@ -19,6 +19,8 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState();
   const [followers, setFollowers] = useState([]);
+  /** list of users */
+  const [listUser, setListUser] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +78,7 @@ const HomePage = () => {
       {/** grid layout 3 */}
       <div className="grid grid-cols-3 gap-4">
         <p>Hello</p>
-        <div className=''>
+        <div className="">
           {/** greeting user */}
           {user && (
             <Link to={'/create-post'}>

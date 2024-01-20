@@ -125,10 +125,10 @@ const PostCard = React.memo(({ postId }) => {
 
   /** currentLikes */
   const currentLikes = useMemo(() => {
-    if (isLiked === false) {
-      if (likesDataa.length === 0) return likesDataa.length;
-      else return likesDataa.length - 1;
-    }
+    // if (isLiked === false) {
+    //   if (likesDataa.length === 0) return likesDataa.length;
+    //   else return likesDataa.length - 1;
+    // }
     return likesDataa.length;
   }, [isLiked, likesDataa]);
 
