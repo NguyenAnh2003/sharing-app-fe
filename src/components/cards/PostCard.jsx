@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   createLike,
+  deleteLike,
   getCategoryById,
   getCommentsByPostId,
   getDataByPostId,
@@ -15,10 +16,10 @@ import { SlLike } from 'react-icons/sl';
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const PostCard = React.memo(({ postId }) => {
   const currentUser = useSelector((state) => state.currentUser.userId);
-  const navigate = useNavigate();
   /**
    * Post data ()
    * @param userId
@@ -27,7 +28,6 @@ const PostCard = React.memo(({ postId }) => {
    * @param title
    * @param description
    * @param imageURL
-   * @param timestamp
    */
   const [postData, setPostData] = useState({});
   const [userData, setUserData] = useState({});
@@ -35,6 +35,9 @@ const PostCard = React.memo(({ postId }) => {
   const [likesDataa, setLikes] = useState([]);
   /** saves */
   const [savesDataa, setSaves] = useState([]);
+  /** validate save and like */
+  const [isLiked, setLiked] = useState(false);
+  const [isSaved, setSaved] = useState(false);
 
   useEffect(() => {
     const fetchDataa = async () => {
@@ -101,9 +104,28 @@ const PostCard = React.memo(({ postId }) => {
 
   /** like submit handler */
   const likeSubmitHandler = useCallback(async () => {
-    const { data, status } = await createLike(currentUser.userId, postData.id);
-    if (status === 200) console.log('like', data);
+    try {
+      const { data, status } = await createLike(currentUser.userId, postData.id);
+      if (status === 200) {
+        setLiked(!isLiked);
+        console.log('liked', data);
+      }
+    } catch (error) {
+      toast.error('Server error');
+    }
   }, [currentUser, postId, postData]);
+
+  const deleteLikeHandler = useCallback(async () => {
+    try {
+      const { data, status } = await deleteLike(currentUser.userId, postData.id);
+      if (status === 204) {
+        setLiked(!isLiked);
+        console.log('delete like', data);
+      }
+    } catch (error) {
+      toast.error('Server error');
+    }
+  });
 
   /** save submit handler validate with owner*/
   const saveSubmitHandler = useCallback(async () => {
@@ -136,7 +158,7 @@ const PostCard = React.memo(({ postId }) => {
                 <div className="text-gray-900 font-bold text-xl">{postData.title}</div>
                 {/** category */}
                 <p className="inline-block bg-primary rounded-full px-2 text-sm font-semibold text-primary">
-                  {postData.category}
+                  #{postData.category}
                 </p>
               </div>
 
@@ -155,11 +177,23 @@ const PostCard = React.memo(({ postId }) => {
           </div>
           {/** interact with post */}
           <div className="w-full flex flex-row justify-between">
-            {/** like button */}
-            <SlLike size={20} className="cursor-pointer" onClick={likeSubmitHandler} />
+            <div className="flex flex-row gap-2">
+              {/** like button include create like and delete */}
+              {isLiked === false ? (
+                <SlLike size={20} className="cursor-pointer" onClick={likeSubmitHandler} />
+              ) : (
+                <SlLike
+                  size={20}
+                  className="cursor-pointer"
+                  onClick={deleteLikeHandler}
+                  style={{ fill: 'red' }}
+                />
+              )}
+              {likesDataa.length}
+            </div>
             {/** comment action */}
             <FaRegCommentAlt size={20} className="cursor-pointer" />
-            {/** save validate with owner */}
+            {/** save validate with owner including create save and delete save*/}
             {postData && postData.userId !== currentUser.userId ? (
               <BsSave size={20} className="cursor-pointer" onClick={saveSubmitHandler} />
             ) : (
