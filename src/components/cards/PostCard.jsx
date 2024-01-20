@@ -116,12 +116,25 @@ const PostCard = React.memo(({ postId }) => {
     else setSaved(false);
   }, [savesDataa, currentUser]);
 
+  /** like validate */
+  const currentLikes = useMemo(() => {
+    if (isLiked === false) {
+      if (likesDataa.length === 0) return likesDataa.length;
+      else return likesDataa.length - 1;
+    }
+    return likesDataa.length;
+  }, [isLiked, likesDataa]);
+
   /** like submit handler */
   const likeSubmitHandler = useCallback(async () => {
     try {
       const { data, status } = await createLike(currentUser.userId, postData.id);
       if (status === 200) {
-        setLiked(!isLiked);
+        setLiked(!isLiked); // set liked (boolean)
+        setLikes((prev) => {
+          return [...prev, data];
+        });
+        console.log(likesDataa);
         console.log('liked', data);
       }
     } catch (error) {
@@ -129,26 +142,18 @@ const PostCard = React.memo(({ postId }) => {
     }
   }, [currentUser, postId, postData]);
 
-  const currentLikes = useMemo(() => {
-    if (isLiked === true) return likesDataa.length + 1;
-    else {
-      if (likesDataa.length === 0) {
-        return likesDataa.length;
-      } else likesDataa.length - 1;
-    }
-  }, [isLiked, likesDataa]);
-
   const deleteLikeHandler = useCallback(async () => {
     try {
       const { status } = await deleteLike(currentUser.userId, postData.id);
       if (status === 204) {
         setLiked(!isLiked);
+        setLikes((prev) => {return prev.filter((x) => x.userId !== currentUser.userId)})
         console.log('delete like');
       }
     } catch (error) {
       toast.error('Server error');
     }
-  });
+  }, [currentUser, postId, postData]);
 
   /** save submit handler validate with owner*/
   const saveSubmitHandler = useCallback(async () => {
