@@ -16,6 +16,7 @@ const AccountPage = () => {
    */
   useEffect(() => {
     const fetchAPI = async () => {
+      /** Promise all for fetching user, post data */
       const { data, status } = await getUserById(userId);
       if (status === 200) {
         setUser(data);
@@ -24,13 +25,15 @@ const AccountPage = () => {
     };
     fetchAPI();
     return () => {
-      setUser({})
-    }
+      setUser({});
+    };
   }, [userId]);
 
   return (
     <div>
-      <p>Account page</p>
+      <p className="text-3xl font-bold">
+        Account page <span>{user.name}</span>
+      </p>
     </div>
   );
 };

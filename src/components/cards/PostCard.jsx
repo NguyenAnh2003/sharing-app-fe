@@ -9,6 +9,9 @@ import {
 } from '../../libs';
 import { useSelector } from 'react-redux';
 import { CiEdit } from 'react-icons/ci';
+import { BsSave } from 'react-icons/bs';
+import { SlLike } from 'react-icons/sl';
+import { FaRegCommentAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -28,7 +31,9 @@ const PostCard = React.memo(({ postId }) => {
   const [postData, setPostData] = useState({});
   const [userData, setUserData] = useState({});
   /** likes */
+  const [likesDataa, setLikes] = useState([]);
   /** saves */
+  const [savesDataa, setSaves] = useState([]);
 
   useEffect(() => {
     const fetchDataa = async () => {
@@ -88,15 +93,15 @@ const PostCard = React.memo(({ postId }) => {
 
   /** like submit handler */
 
-  /** save submit handler */
+  /** save submit handler validate with owner*/
 
   return (
     postData && (
       <div>
         {/** post content */}
-        <div className="border border-gray-400 lg:border-gray-400 bg-card p-4 flex flex-col justify-between leading-normal">
-          <div className="mb-8">
-            <div className="flex flex-row items-center gap-5 mb-3 justify-between">
+        <div className="border border-gray-400 lg:border-gray-400 bg-card p-4">
+          <div className="mb-5">
+            <div className="flex flex-row items-center gap-5 mb-2 justify-between">
               <div>
                 <div className="text-gray-900 font-bold text-xl">{postData.title}</div>
                 {/** category */}
@@ -115,6 +120,25 @@ const PostCard = React.memo(({ postId }) => {
             <p className="text-gray-700 text-base">{postData.description}</p>
             {/** post image */}
             <img className="w-full mt-3" src={postData.imageURL} alt={postData.id} />
+          </div>
+          {/** interact with post */}
+          <div classname="w-full flex flex-row">
+            {/** like button */}
+            <button classname="cursor-pointer">
+              <SlLike size={20} />
+            </button>
+            {/** save validate with owner */}
+            {postData && postData.userId !== currentUser.userId ? (
+              <button classname="cursor-pointer ml-2">
+                <BsSave size={20} />
+              </button>
+            ) : (
+              <></>
+            )}
+            {/** comment action */}
+            <button classname="cursor-pointer ml-4">
+              <FaRegCommentAlt size={20} />
+            </button>
           </div>
           <Link
             to={`/account/${postData.userId}`}
