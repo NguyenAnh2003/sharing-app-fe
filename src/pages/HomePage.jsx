@@ -89,8 +89,6 @@ const HomePage = () => {
         <SideBar />
 
         <div className="">
-          <UserSlider listUser={listUser} />
-
           {/** greeting user */}
           {user && (
             <Link to={'/create-post'}>
@@ -101,6 +99,10 @@ const HomePage = () => {
               </div>
             </Link>
           )}
+          
+          {/** list of user */}
+          <UserSlider listUser={listUser} />
+          
 
           {/** list of posts */}
           <div className="flex flex-col gap-4 mt-5">

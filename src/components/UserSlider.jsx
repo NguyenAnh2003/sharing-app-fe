@@ -12,7 +12,7 @@ const settings = {
 
 const UserSlider = ({ listUser }) => {
   return (
-    <Slider {...settings} className='mb-10'>
+    <Slider {...settings} className='my-10'>
       {listUser.map((i, idx) => (
         <UserCard userId={i.id} username={i.name} avatarURL={i.avatarURL} key={idx} />
       ))}
