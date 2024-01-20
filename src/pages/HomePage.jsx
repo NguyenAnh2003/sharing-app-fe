@@ -42,7 +42,6 @@ const HomePage = () => {
             { data: followersData, status: followersStatus },
           ]) => {
             if (postsStatus === 200 && userStatus === 200 && followersStatus === 200) {
-              console.log({ postsData, userData, followersData });
               setPosts(postsData);
               setUser(userData);
               setFollowers(followersData);
@@ -54,7 +53,6 @@ const HomePage = () => {
       }
     };
     fetchData();
-    console.log(posts);
   }, [currentUser]);
 
   useEffect(() => {

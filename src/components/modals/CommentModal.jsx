@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { getCommentsByPostId } from '../../libs';
+import { createComment, getCommentsByPostId } from '../../libs';
 import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material';
 import { FaRegCommentAlt } from 'react-icons/fa';
 import Input from '../Input';
+import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
+import { toast } from 'react-hot-toast';
 
 const style = {
   width: 600,
@@ -19,6 +22,7 @@ const style = {
 };
 
 const CommentModal = ({ open, handleClose, postId }) => {
+  const currentUser = useSelector((state) => state.currentUser.userId);
   const [comments, setComments] = useState([]);
   /** ref */
   const commentRef = useRef(null);
@@ -37,6 +41,25 @@ const CommentModal = ({ open, handleClose, postId }) => {
       setComments([]);
     };
   }, []);
+
+  /** add */
+  const commentSubmitHandler = useCallback(async () => {
+    try {
+      if (commentRef.current.value !== '') {
+        const { data, status } = await createComment(
+          currentUser.userId,
+          postId,
+          commentRef.current.value
+        );
+        if (status === 200) {
+          console.log('create comment', data);
+        }
+      } else toast.error('Must not be empty');
+    } catch (error) {
+      console.error(error.data);
+      toast.error(error.data);
+    }
+  }, [currentUser, comments]);
 
   return (
     <div>
@@ -57,9 +80,13 @@ const CommentModal = ({ open, handleClose, postId }) => {
         <Fade in={open} className="overflow-hidden">
           <Box sx={style}>
             {/** input */}
-            <div className='px-10 relative'>
+            <div className="px-10 relative">
               <Input name="text" type="text" placeHolder="Your expression" ref={commentRef} />
-              <FaRegCommentAlt size={20} className="cursor-pointer absolute top-2 right-14" />
+              <FaRegCommentAlt
+                onClick={commentSubmitHandler}
+                size={20}
+                className="cursor-pointer absolute top-2 right-14"
+              />
             </div>
             <div className="overflow-y-scroll h-full"></div>
           </Box>

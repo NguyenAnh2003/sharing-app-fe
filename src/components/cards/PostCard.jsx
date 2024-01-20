@@ -81,7 +81,6 @@ const PostCard = React.memo(({ postId }) => {
               likesStatus === 200 &&
               saveStatus === 200
             ) {
-              console.log({ likesData, saveData });
               /** set like data */
               setLikes(likesData);
               /** set save data */
