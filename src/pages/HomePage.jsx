@@ -3,11 +3,13 @@ import { useEffect } from 'react';
 import { getCurrentUser } from '../libs/apis/auth.api';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { getAllPostsByUserId, getFollowersByUserId, getUserById } from '../libs';
+import { getAllPostsByUserId, getAllUsers, getFollowersByUserId, getUserById } from '../libs';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveCurrentUser } from '../redux';
 import PostCard from '../components/cards/PostCard';
 import FollwingUserCard from '../components/cards/FollwingUserCard';
+import SideBar from '../components/SideBar';
+import UserSlider from '../components/UserSlider';
 
 /* Replace for search page */
 
@@ -35,16 +37,24 @@ const HomePage = () => {
           getAllPostsByUserId(currentUser.userId),
           getUserById(currentUser.userId),
           getFollowersByUserId(currentUser.userId),
+          getAllUsers(), // get all users
         ]).then(
           ([
             { data: postsData, status: postsStatus },
             { data: userData, status: userStatus },
             { data: followersData, status: followersStatus },
+            { data: allUser, status: allUserStatus },
           ]) => {
-            if (postsStatus === 200 && userStatus === 200 && followersStatus === 200) {
+            if (
+              postsStatus === 200 ||
+              userStatus === 200 ||
+              followersStatus === 200 ||
+              allUserStatus === 200
+            ) {
               setPosts(postsData);
               setUser(userData);
               setFollowers(followersData);
+              setListUser(allUser);
             }
           }
         );
@@ -72,11 +82,15 @@ const HomePage = () => {
 
   return (
     <div className="container-2xl mx-10">
-      <p className="text-3xl font-bold underline">Home page</p>
+      <p className="text-3xl font-bold underline mb-3">Home page</p>
       {/** grid layout 3 */}
       <div className="grid grid-cols-3 gap-4">
-        <p>Hello</p>
+        {/** side bar */}
+        <SideBar />
+
         <div className="">
+          <UserSlider listUser={listUser} />
+
           {/** greeting user */}
           {user && (
             <Link to={'/create-post'}>

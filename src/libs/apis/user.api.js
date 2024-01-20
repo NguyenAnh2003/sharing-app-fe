@@ -9,6 +9,11 @@ export const getUserById = (userId) => {
   return res;
 };
 
+export const getAllUsers = () => {
+  const res = getHTTP('user');
+  return res;
+};
+
 export const getUserByName = () => {};
 
 // userUpdate
