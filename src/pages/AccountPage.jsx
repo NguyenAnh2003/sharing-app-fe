@@ -50,10 +50,15 @@ const AccountPage = () => {
         <div className="col-span-3">
           <div className="grid grid-cols-3 gap-20">
             <div className="col-span-1">
-              <UploadFile setUrl={setImageUrl} imageUrl={user.avatarURL} />
+              <UploadFile
+                setUrl={setImageUrl}
+                userId={user.id}
+                imageUrl={user.avatarURL}
+                variant={'user'}
+              />
             </div>
             {/** form update */}
-            <div className='col-span-2'>
+            <div className="col-span-2">
               <Input />
             </div>
           </div>
@@ -61,10 +66,14 @@ const AccountPage = () => {
         {/** post part */}
         <div className="col-span-2">
           <div className="flex flex-col gap-4">
-            {posts.map((i, idx) => (
-              /** post Data */
-              <PostCard key={idx} postId={i.id} />
-            ))}
+            {posts.length !== 0 ? (
+              posts.map((i, idx) => (
+                /** post Data */
+                <PostCard key={idx} postId={i.id} />
+              ))
+            ) : (
+              <h1>No posts</h1>
+            )}
           </div>
         </div>
       </div>

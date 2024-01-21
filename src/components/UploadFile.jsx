@@ -10,7 +10,7 @@ import { uploadFile } from '../libs';
  * avatar user URL
  * */
 
-const UploadFile = ({ setUrl, imageUrl }) => {
+const UploadFile = ({ setUrl, imageUrl, variant, userId }) => {
   /** set image url */
   const [file, setFile] = useState(null);
   const currentUser = useSelector((state) => state.currentUser.userId);
@@ -55,13 +55,31 @@ const UploadFile = ({ setUrl, imageUrl }) => {
         />
       </div>
       <div className="">
-        <input type="file" onChange={fileChangeHandler} />
-        <button
-          onClick={uploadHandler}
-          className="mt-5 font-semibold py-2 w-full rounded bg-btn text-white"
-        >
-          Submit
-        </button>
+        {variant === 'user' ? (
+          currentUser.userId === userId ? (
+            <>
+              <input type="file" onChange={fileChangeHandler} />
+              <button
+                onClick={uploadHandler}
+                className="mt-5 font-semibold py-2 w-full rounded bg-btn text-white"
+              >
+                Submit
+              </button>
+            </>
+          ) : (
+            <></>
+          )
+        ) : (
+          <>
+            <input type="file" onChange={fileChangeHandler} />
+            <button
+              onClick={uploadHandler}
+              className="mt-5 font-semibold py-2 w-full rounded bg-btn text-white"
+            >
+              Submit
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
