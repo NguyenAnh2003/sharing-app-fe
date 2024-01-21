@@ -46,16 +46,18 @@ const UploadFile = ({ setUrl }) => {
   return (
     <div className="">
       {/** display image */}
-      <div className="mb-5 w-[266px] h-[266px]">
-        <img style={{ objectFit: 'cover' }} className=' w-full' src={img} alt="image"></img>
+      <div className="mb-5 w-[270px] h-[266px]">
+        <img style={{ objectFit: 'cover' }} className=" w-full" src={img} alt="image"></img>
       </div>
-      <input type="file" onChange={fileChangeHandler} />
-      <button
-        onClick={uploadHandler}
-        className="mt-5 font-semibold py-2 px-4 w-full rounded bg-btn text-white"
-      >
-        Submit
-      </button>
+      <div className='pr-20'>
+        <input type="file" onChange={fileChangeHandler} />
+        <button
+          onClick={uploadHandler}
+          className="mt-5 font-semibold py-2 w-full rounded bg-btn text-white"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 };

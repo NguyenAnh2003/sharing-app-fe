@@ -38,7 +38,6 @@ const CreatePostPage = () => {
     setCategoryId(e.target.value);
   };
 
-
   const createHandler = useCallback(async () => {
     try {
       if (
