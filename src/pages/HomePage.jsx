@@ -55,6 +55,7 @@ const HomePage = () => {
               setUser(userData);
               setFollowers(followersData);
               setListUser(allUser.filter((x) => x.id !== currentUser.userId));
+              console.log(allUser);
             }
           }
         );
