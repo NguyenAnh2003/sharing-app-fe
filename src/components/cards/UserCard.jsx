@@ -3,9 +3,15 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { followUser } from '../../libs';
 import toast from 'react-hot-toast';
+import styled from 'styled-components'; // styled the component with multiple variants
 import { Link } from 'react-router-dom';
 
 const UserCard = React.memo(({ userId, username, avatarURL }) => {
+  /** variants
+   * @var slider
+   * @var following
+   * @var searched
+   */
   const currentUser = useSelector((state) => state.currentUser.userId);
   console.log('Re-render from userCard');
 
@@ -19,6 +25,10 @@ const UserCard = React.memo(({ userId, username, avatarURL }) => {
       toast.error(error.data);
     }
   }, [userId, currentUser]);
+
+  const unFollowHandler = useCallback(async () => {
+    
+  }, [userId, currentUser])
 
   return (
     <div className="flex flex-col bg-card">

@@ -9,7 +9,7 @@ import { saveCurrentUser } from '../redux';
 import PostCard from '../components/cards/PostCard';
 import FollwingUserCard from '../components/cards/FollwingUserCard';
 import SideBar from '../components/SideBar';
-import UserSlider from '../components/UserSlider';
+import UserSlider from '../components/slider/UserSlider';
 
 /* Replace for search page */
 
@@ -54,7 +54,7 @@ const HomePage = () => {
               setPosts(postsData);
               setUser(userData);
               setFollowers(followersData);
-              setListUser(allUser);
+              setListUser(allUser.filter((x) => x.id !== currentUser.userId));
             }
           }
         );
@@ -99,10 +99,9 @@ const HomePage = () => {
               </div>
             </Link>
           )}
-          
+
           {/** list of user */}
           <UserSlider listUser={listUser} />
-          
 
           {/** list of posts */}
           <div className="flex flex-col gap-4 mt-5">
