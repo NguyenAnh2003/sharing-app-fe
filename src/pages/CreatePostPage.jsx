@@ -38,7 +38,6 @@ const CreatePostPage = () => {
     setCategoryId(e.target.value);
   };
 
-
   const createHandler = useCallback(async () => {
     try {
       if (
@@ -104,7 +103,7 @@ const CreatePostPage = () => {
         </div>
         {/** upload file form */}
         <div className="">
-          <UploadFile setUrl={setUrl} />
+          <UploadFile setUrl={setUrl} imageUrl={''} />
         </div>
       </div>
     </div>

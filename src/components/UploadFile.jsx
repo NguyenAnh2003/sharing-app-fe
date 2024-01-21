@@ -10,7 +10,7 @@ import { uploadFile } from '../libs';
  * avatar user URL
  * */
 
-const UploadFile = ({ setUrl }) => {
+const UploadFile = ({ setUrl, imageUrl }) => {
   /** set image url */
   const [file, setFile] = useState(null);
   const currentUser = useSelector((state) => state.currentUser.userId);
@@ -44,12 +44,17 @@ const UploadFile = ({ setUrl }) => {
   }, [currentUser, file]);
 
   return (
-    <div className="">
+    <div className="w-[270px]">
       {/** display image */}
-      <div className="mb-5 w-[270px] h-[266px]">
-        <img style={{ objectFit: 'cover' }} className=" w-full" src={img} alt="image"></img>
+      <div className="mb-5  h-[266px]">
+        <img
+          style={{ objectFit: 'cover' }}
+          className=" w-full"
+          src={imageUrl ? imageUrl : img}
+          alt="image"
+        />
       </div>
-      <div className='pr-20'>
+      <div className="">
         <input type="file" onChange={fileChangeHandler} />
         <button
           onClick={uploadHandler}

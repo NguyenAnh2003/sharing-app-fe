@@ -85,11 +85,13 @@ const HomePage = () => {
     <div className="container-2xl mx-10 mb-10 mt-5">
       <p className="headingPage">Home page</p>
       {/** grid layout 3 */}
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-8 gap-40">
         {/** side bar */}
-        <SideBar />
+        <div className='col-span-2'>
+          <SideBar />
+        </div>
 
-        <div className="">
+        <div className="col-span-4">
           {/** greeting user */}
           {user && (
             <Link to={'/create-post'}>
@@ -118,7 +120,7 @@ const HomePage = () => {
           </div>
         </div>
         {/** list of followers */}
-        <div className="flex flex-col gap-4 ml-40">
+        <div className="flex flex-col gap-4 col-span-2">
           <h1 className="text-xl font-semibold underline text-center">Followers</h1>
           <div className="flex flex-col gap-3">
             {followers.map((i, idx) => (
