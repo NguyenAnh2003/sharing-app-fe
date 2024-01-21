@@ -32,6 +32,14 @@ const AccountPage = () => {
   return (
     <div>
       <h1 className="headingPage container mx-10 mb-10 mt-5">{user.name}</h1>
+      <div className='grid grid-cols-3'>
+        {/** edit part */}
+        <div>
+          
+        </div>
+        {/** post part */}
+        <div className='col-span-2'></div>
+      </div>
     </div>
   );
 };
