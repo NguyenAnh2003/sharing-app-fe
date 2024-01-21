@@ -7,11 +7,7 @@ import styled from 'styled-components'; // styled the component with multiple va
 import { Link } from 'react-router-dom';
 
 const UserCard = React.memo(({ userId, username, avatarURL }) => {
-  /** variants
-   * @var slider
-   * @var following
-   * @var searched
-   */
+  /** used for follow user card */
   const currentUser = useSelector((state) => state.currentUser.userId);
   const [isFollowed, setFollowed] = useState(false);
 

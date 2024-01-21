@@ -9,6 +9,6 @@
 import { postHTTP } from '../../configs/api.config';
 
 export const uploadFile = async (formData) => {
-  const res = await postHTTP('/upload', formData);
+  const res = await postHTTP('media/upload', formData);
   return res;
 };

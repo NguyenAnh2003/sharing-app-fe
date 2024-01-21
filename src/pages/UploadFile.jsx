@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
@@ -12,14 +12,22 @@ import { uploadFile } from '../libs';
 
 const UploadFile = ({ setUrl }) => {
   /** set image url */
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const currentUser = useSelector((state) => state.currentUser.userId);
+
+  const fileChangeHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   const uploadHandler = useCallback(async () => {
     try {
-      const { data, status } = await uploadFile();
+      const formData = new FormData();
+      formData.append('file', image);
+
+      const { data, status } = await uploadFile(formData); // form data
       if (status === 200) {
-        setImage(image);
+        // setImage(data);
+        console.log('image', data);
         toast.success('Uploaded successfully');
       }
     } catch (error) {
@@ -31,9 +39,14 @@ const UploadFile = ({ setUrl }) => {
   return (
     <div>
       <p>Module test for uploading</p>
-      <input type="file" />
+      <input type="file" onChange={fileChangeHandler} />
       <img src={image}></img>
-      <button>Submit</button>
+      <button
+        onClick={uploadHandler}
+        className="font-semibold py-2 px-4 w-full rounded bg-btn text-white"
+      >
+        Submit
+      </button>
     </div>
   );
 };
