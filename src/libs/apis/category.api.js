@@ -2,7 +2,7 @@ import { getHTTP } from '../../configs/api.config';
 
 export const getCategories = () => {
   /** get all categories */
-  const res = getHTTP();
+  const res = getHTTP('category');
   return res;
 };
 
