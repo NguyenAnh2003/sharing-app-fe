@@ -57,7 +57,11 @@ const AccountPage = () => {
       {open ? <UpdateNameModal open={open} handleClose={handleClose} /> : <></>}
       <div className="flex flex-row items-center mb-10 mt-5 gap-4">
         <h1 className="headingPage ">{user.name}</h1>
-        <FiEdit2 size={20} className="cursor-pointer" onClick={handleOpen} />
+        {currentUser.userId === userId ? (
+          <FiEdit2 size={20} className="cursor-pointer" onClick={handleOpen} />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="flex flex-row justify-evenly gap-6">
         {/** edit part */}
