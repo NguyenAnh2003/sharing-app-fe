@@ -101,7 +101,10 @@ const HomePage = () => {
           )}
 
           {/** list of user */}
-          <UserSlider listUser={listUser} />
+          <div className='flex flex-col mt-10'>
+            <h1 className='text-3xl text-center font-semibold text-primary'>Some people you may know</h1>
+            <UserSlider listUser={listUser} />
+          </div>
 
           {/** list of posts */}
           <div className="flex flex-col gap-4 mt-5">
