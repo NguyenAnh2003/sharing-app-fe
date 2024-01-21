@@ -4,6 +4,9 @@ import { getPostsByUserId, getUserById, setUserId } from '../libs';
 import UploadFile from '../components/UploadFile';
 import PostCard from '../components/cards/PostCard';
 import Input from '../components/Input';
+import { FiEdit2 } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
+import UpdateNameModal from '../components/modals/UpdateNameModal';
 
 /**
  *
@@ -11,6 +14,7 @@ import Input from '../components/Input';
  * fetch user by Id
  */
 const AccountPage = () => {
+  const currentUser = useSelector((state) => state.currentUser.userId);
   const { userId } = useParams();
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
@@ -19,6 +23,11 @@ const AccountPage = () => {
    * Calling current user to check (state)
    * Allowing to update based on current userId
    */
+  /** open comment modal */
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   useEffect(() => {
     const fetchAPI = async () => {
       /** Promise all for fetching user, post data */
@@ -44,27 +53,26 @@ const AccountPage = () => {
 
   return (
     <div className="container-2xl mx-10 mb-10">
-      <h1 className="headingPage mb-10 mt-5">{user.name}</h1>
-      <div className="grid grid-cols-5 gap-10">
+      {/** modal */}
+      {open ? <UpdateNameModal open={open} handleClose={handleClose} /> : <></>}
+      <div className="flex flex-row items-center mb-10 mt-5 gap-4">
+        <h1 className="headingPage ">{user.name}</h1>
+        <FiEdit2 size={20} className="cursor-pointer" onClick={handleOpen} />
+      </div>
+      <div className="flex flex-row justify-evenly gap-6">
         {/** edit part */}
-        <div className="col-span-3">
-          <div className="grid grid-cols-3 gap-20">
-            <div className="col-span-1">
-              <UploadFile
-                setUrl={setImageUrl}
-                userId={user.id}
-                imageUrl={user.avatarURL}
-                variant={'user'}
-              />
-            </div>
-            {/** form update */}
-            <div className="col-span-2">
-              <Input />
-            </div>
+        <div className="ml-64">
+          <div className="">
+            <UploadFile
+              setUrl={setImageUrl}
+              userId={user.id}
+              imageUrl={user.avatarURL}
+              variant={'user'}
+            />
           </div>
         </div>
         {/** post part */}
-        <div className="col-span-2">
+        <div className="w-[500px]">
           <div className="flex flex-col gap-4">
             {posts.length !== 0 ? (
               posts.map((i, idx) => (

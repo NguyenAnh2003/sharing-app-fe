@@ -1,4 +1,4 @@
-import { getHTTP, postHTTP } from '../../configs/api.config';
+import { getHTTP, postHTTP, putHTTP } from '../../configs/api.config';
 
 // getUserById
 // getUsersByName
@@ -19,6 +19,6 @@ export const getUserByName = () => {};
 // userUpdate
 export const updateProfile = (userId, name) => {
   /** userId, name */
-  const res = postHTTP(`user/update/${userId}`, { name });
+  const res = putHTTP(`user/update/${userId}`, { name });
   return res;
 };
