@@ -84,7 +84,7 @@ const HomePage = () => {
     <div className="container-2xl mx-10">
       <p className="text-3xl font-bold underline mb-3">Home page</p>
       {/** grid layout 3 */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3">
         {/** side bar */}
         <SideBar />
 
@@ -101,8 +101,10 @@ const HomePage = () => {
           )}
 
           {/** list of user */}
-          <div className='flex flex-col mt-10'>
-            <h1 className='text-3xl text-center font-semibold text-primary'>Some people you may know</h1>
+          <div className="flex flex-col mt-10">
+            <h1 className="text-3xl text-center font-semibold text-primary">
+              Some people you may know
+            </h1>
             <UserSlider listUser={listUser} />
           </div>
 
@@ -115,7 +117,7 @@ const HomePage = () => {
           </div>
         </div>
         {/** list of followers */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 ml-40">
           <h1 className="text-xl font-semibold underline text-center">Followers</h1>
           <div className="flex flex-col gap-3">
             {followers.map((i, idx) => (
