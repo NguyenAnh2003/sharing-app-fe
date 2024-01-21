@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { deleteComment, getUserById } from '../../libs';
 import { Link } from 'react-router-dom';
 import { MdDeleteOutline } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 const CommentCard = React.memo(({ commentId, userId, postId, content, setComments }) => {
   /** props
@@ -13,6 +14,8 @@ const CommentCard = React.memo(({ commentId, userId, postId, content, setComment
    * @prop setComments
    */
   const [user, setUser] = useState({});
+
+  const currentUser = useSelector((state) => state.currentUser.userId);
 
   /** fetch user info */
   useEffect(() => {
@@ -37,6 +40,11 @@ const CommentCard = React.memo(({ commentId, userId, postId, content, setComment
     };
   }, [commentId, userId]);
 
+  const valiadtionDelete = useMemo(() => {
+    if (currentUser.userId === userId) return true;
+    else return false;
+  }, [currentUser, userId]);
+
   /** delete handler */
   const deleteCommentHandler = useCallback(async () => {
     try {
@@ -45,7 +53,7 @@ const CommentCard = React.memo(({ commentId, userId, postId, content, setComment
         setComments((prev) => {
           return prev.filter((x) => x.id !== commentId);
         });
-        toast.success("Deleted comment")
+        toast.success('Deleted comment');
       }
     } catch (error) {
       console.error(error);
@@ -62,8 +70,8 @@ const CommentCard = React.memo(({ commentId, userId, postId, content, setComment
         </Link>
         <p className="text-sm">{content}</p>
       </div>
-      {/** delete btn */}
-      <MdDeleteOutline size={25} onClick={deleteCommentHandler} />
+      {/** delete btn validation with currentUser */}
+      {valiadtionDelete ? <MdDeleteOutline size={25} onClick={deleteCommentHandler} /> : <></>}
     </div>
   );
 });
