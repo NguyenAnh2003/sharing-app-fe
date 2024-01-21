@@ -78,7 +78,7 @@ const UserCard = React.memo(({ userId, username, avatarURL }) => {
         </Link>
       </div>
       {/** follow button */}
-      {!isFollowed ? (
+      {isFollowed === false ? (
         <div className="px-6 pb-6">
           <button
             onClick={unFollowHandler}
