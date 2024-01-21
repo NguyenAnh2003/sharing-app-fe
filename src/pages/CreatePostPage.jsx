@@ -38,6 +38,7 @@ const CreatePostPage = () => {
     setCategoryId(e.target.value);
   };
 
+
   const createHandler = useCallback(async () => {
     try {
       if (
@@ -66,7 +67,7 @@ const CreatePostPage = () => {
   }, [currentUser, imageUrl, categoryId]);
 
   return (
-    <div className="container-2xl mx-10 ">
+    <div className="container-2xl mx-10 mb-10 mt-5">
       <h1 className="headingPage">Create your own post</h1>
 
       <div className="grid grid-cols-4 gap-0">

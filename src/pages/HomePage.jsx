@@ -82,7 +82,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="container-2xl mx-10">
+    <div className="container-2xl mx-10 mb-10 mt-5">
       <p className="headingPage">Home page</p>
       {/** grid layout 3 */}
       <div className="grid grid-cols-3">
