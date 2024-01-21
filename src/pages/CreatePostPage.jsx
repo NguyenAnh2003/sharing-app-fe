@@ -9,8 +9,8 @@ const CreatePostPage = () => {
   const currentUser = useSelector((state) => state.currentUser.userId);
   const titleRef = useRef();
   const desRef = useRef();
-  const [categoryId, setCategoryId] = useState();
   const [options, setOptions] = useState([]); // options of categories
+  const [categoryId, setCategoryId] = useState();
   const [imageUrl, setUrl] = useState();
 
   /**
@@ -33,16 +33,28 @@ const CreatePostPage = () => {
     fetchCategories();
   }, []);
 
+  const categoryHandler = (e) => {
+    console.log(e.target.value);
+    setCategoryId(e.target.value);
+  };
+
   const createHandler = useCallback(async () => {
     try {
       if (
         titleRef.current.value === '' ||
         desRef.current.value === '' ||
-        categoryId === '' ||
-        imageUrl === ''
+        categoryId === null ||
+        imageUrl === null
       )
         toast.error('Fill info first');
       else {
+        console.log({
+          userId: currentUser.userId,
+          categoryId,
+          title: titleRef.current.value,
+          des: desRef.current.value,
+          imageUrl,
+        });
         const { data, status } = await createPost(
           currentUser.userId,
           categoryId,
@@ -57,20 +69,42 @@ const CreatePostPage = () => {
     } catch (error) {
       toast.error(error.data);
     }
-  }, [currentUser]);
+  }, [currentUser, imageUrl, categoryId]);
 
   return (
-    <div className="container-2xl mx-10">
+    <div className="container-2xl mx-10 ">
       <h1 className="headingPage">Create your own post</h1>
 
-      <div className="grid grid-cols-4 gap-12">
+      <div className="grid grid-cols-4 gap-0">
         {/** form for create post */}
-        <div className="col-span-3 pr-40">
+        <div className="col-span-3 pr-40 pt-10 relative">
           <form className="col-span-2">
-            <div className="flex flex-col gap-4 mb-4">
-              <Input />
+            <div className="flex flex-col gap-4">
+              <Input placeHolder="Post title" name="text" type="text" ref={titleRef} />
+              {/** text area */}
+              <textarea
+                placeholder="Your description"
+                ref={desRef}
+                className="outline-none peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] transition-all duration-200 ease-linear focus:placeholder:opacity-100"
+              />
             </div>
             {/** categories */}
+            <div className="flex flex-row justify-between mt-4">
+              <select onChange={categoryHandler} className="outline-none cursor-pointer">
+                {options.map((i) => (
+                  <option key={i.id} value={i.id}>
+                    {i.category}
+                  </option>
+                ))}
+              </select>
+              <button
+                onClick={createHandler}
+                type="button"
+                className="font-semibold py-2 px-4 rounded bg-btn text-white"
+              >
+                Create
+              </button>
+            </div>
           </form>
         </div>
         {/** upload file form */}
