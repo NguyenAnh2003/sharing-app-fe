@@ -83,7 +83,7 @@ const HomePage = () => {
 
   return (
     <div className="container-2xl mx-10">
-      <p className="text-3xl font-bold underline mb-3">Home page</p>
+      <p className="headingPage">Home page</p>
       {/** grid layout 3 */}
       <div className="grid grid-cols-3">
         {/** side bar */}

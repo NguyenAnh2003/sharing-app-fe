@@ -6,6 +6,9 @@
   /* .container {
     @apply mx-5 my-5 w-full;
   } */
+  .headingPage {
+    @apply text-3xl font-bold underline mb-3
+  }
 }
 
 @layer base {

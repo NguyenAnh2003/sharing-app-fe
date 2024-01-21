@@ -31,7 +31,7 @@ const AccountPage = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold underline container mx-10">{user.name}</h1>
+      <h1 className="headingPage container mx-10">{user.name}</h1>
     </div>
   );
 };

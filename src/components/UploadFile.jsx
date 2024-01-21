@@ -14,7 +14,9 @@ const UploadFile = ({ setUrl }) => {
   /** set image url */
   const [file, setFile] = useState(null);
   const currentUser = useSelector((state) => state.currentUser.userId);
-  const [img, setImg] = useState();
+  const [img, setImg] = useState(
+    'http://res.cloudinary.com/drijaswh2/image/upload/v1705807950/cwfs1vnfho0rhpuxtqvu.jpg'
+  );
 
   const fileChangeHandler = (e) => {
     setFile(e.target.files[0]);
@@ -22,15 +24,18 @@ const UploadFile = ({ setUrl }) => {
 
   const uploadHandler = useCallback(async () => {
     try {
-      const formData = new FormData();
-      formData.append('file', file);
+      if (file === null) toast.error('No file chosen');
+      else {
+        const formData = new FormData();
+        formData.append('file', file);
 
-      const { data, status } = await uploadFile(formData); // form data
-      if (status === 200) {
-        // setImage(data);
-        console.log('image', data);
-        setImg(data);
-        toast.success('Uploaded successfully');
+        const { data, status } = await uploadFile(formData); // form data
+        if (status === 200) {
+          console.log('image', data);
+          setImg(data); // display image
+          setUrl(data); // set url for parent component
+          toast.success('Uploaded successfully');
+        }
       }
     } catch (error) {
       console.error(error);
@@ -39,13 +44,15 @@ const UploadFile = ({ setUrl }) => {
   }, [currentUser, file]);
 
   return (
-    <div>
-      <p>Module test for uploading</p>
+    <div className="">
+      {/** display image */}
+      <div className="mb-5">
+        <img style={{ objectFit: 'cover' }} className=' w-full' src={img} alt="image"></img>
+      </div>
       <input type="file" onChange={fileChangeHandler} />
-      <img src={img}></img>
       <button
         onClick={uploadHandler}
-        className="font-semibold py-2 px-4 w-full rounded bg-btn text-white"
+        className="mt-5 font-semibold py-2 px-4 w-full rounded bg-btn text-white"
       >
         Submit
       </button>
