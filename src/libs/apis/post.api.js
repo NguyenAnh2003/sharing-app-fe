@@ -14,6 +14,7 @@ export const createPost = (userId, categoryId, title, description, imageURL) => 
    * @param description
    * @param imageURL
    */
+  console.log(userId);
   const res = postHTTP('p/create', { userId, categoryId, title, description, imageURL });
   return res;
 };

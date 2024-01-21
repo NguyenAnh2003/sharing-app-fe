@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import UploadFile from '../components/UploadFile';
 import Input from '../components/Input';
 import { useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ const CreatePostPage = () => {
   /**
    * @param title
    * @param description
-   * @param userId -> currentUser.userId
+   * @param userId -> currentUser
    * @param categoryId -> fetch category
    * @param imageUrl
    */
@@ -38,23 +38,15 @@ const CreatePostPage = () => {
     setCategoryId(e.target.value);
   };
 
+
   const createHandler = useCallback(async () => {
     try {
       if (
-        titleRef.current.value === '' ||
-        desRef.current.value === '' ||
-        categoryId === null ||
-        imageUrl === null
-      )
-        toast.error('Fill info first');
-      else {
-        console.log({
-          userId: currentUser.userId,
-          categoryId,
-          title: titleRef.current.value,
-          des: desRef.current.value,
-          imageUrl,
-        });
+        titleRef.current.value !== '' ||
+        desRef.current.value !== '' ||
+        categoryId !== null ||
+        imageUrl !== null
+      ) {
         const { data, status } = await createPost(
           currentUser.userId,
           categoryId,
@@ -63,8 +55,11 @@ const CreatePostPage = () => {
           imageUrl
         );
         if (status === 200) {
+          console.log(data);
           toast.success('Create post successfully');
         }
+      } else {
+        toast.error('Fill info first');
       }
     } catch (error) {
       toast.error(error.data);

@@ -46,7 +46,7 @@ const UploadFile = ({ setUrl }) => {
   return (
     <div className="">
       {/** display image */}
-      <div className="mb-5">
+      <div className="mb-5 w-[266px] h-[266px]">
         <img style={{ objectFit: 'cover' }} className=' w-full' src={img} alt="image"></img>
       </div>
       <input type="file" onChange={fileChangeHandler} />

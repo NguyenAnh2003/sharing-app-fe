@@ -16,9 +16,7 @@ const UserCard = React.memo(({ userId, username, avatarURL }) => {
       const fetchDataa = async () => {
         const { data, status } = await getFollowersByUserId(currentUser.userId);
         if (status === 200) {
-          console.log(data);
           const followed = data.some((x) => x.followingId === userId);
-          console.log(followed);
           if (!followed) setFollowed(true);
           else setFollowed(false);
         }
