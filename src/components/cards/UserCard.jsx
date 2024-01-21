@@ -51,7 +51,7 @@ const UserCard = React.memo(({ userId, username, avatarURL }) => {
     try {
       const { status } = await unfollowUser(currentUser.userId, userId);
       if (status === 204) {
-        setFollowed(false);
+        setFollowed(!isFollowed);
         toast.success('You have unfollowed this person');
       }
     } catch (error) {
