@@ -55,17 +55,30 @@ const AccountPage = () => {
     <div className="container-2xl mx-10 mb-10">
       {/** modal */}
       {open ? <UpdateNameModal open={open} handleClose={handleClose} /> : <></>}
-      <div className="flex flex-row items-center mb-10 mt-5 gap-4">
-        <h1 className="headingPage ">{user.name}</h1>
-        {currentUser.userId === userId ? (
-          <FiEdit2 size={20} className="cursor-pointer" onClick={handleOpen} />
-        ) : (
-          <></>
-        )}
-      </div>
-      <div className="flex flex-row justify-center">
+      <div className="grid grid-cols-3 mt-10 gap-10">
+        <div className="">
+          {/** avatar */}
+          <div className="flex mb-10">
+            <div className="relative">
+              <img
+                src={user.avatarURL}
+                alt={user.id}
+                className="w-60 h-60 rounded-full"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+          </div>
+          <div className="flex flex-row items-center mt-5 gap-4 ml-5">
+            <h1 className="headingPage ">{user.name}</h1>
+            {currentUser.userId === userId ? (
+              <FiEdit2 size={20} className="cursor-pointer" onClick={handleOpen} />
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
         {/** post part */}
-        <div className="w-[500px]">
+        <div className="">
           <div className="flex flex-col gap-4">
             {posts.length !== 0 ? (
               posts.map((i, idx) => (

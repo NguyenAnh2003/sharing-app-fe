@@ -204,7 +204,7 @@ const PostCard = React.memo(({ postId }) => {
           <div className="mb-5">
             <div className="flex flex-row items-center gap-5 mb-2 justify-between">
               <div>
-                <div className="text-gray-900 font-bold text-xl">{postData.title}</div>
+                <div className="text-gray-900 font-bold text-xl break-all">{postData.title}</div>
                 {/** category */}
                 <p className="inline-block bg-primary rounded-full px-2 text-sm font-semibold text-primary">
                   #{postData.category}
@@ -220,7 +220,7 @@ const PostCard = React.memo(({ postId }) => {
                 <></>
               )}
             </div>
-            <p className="text-gray-700 text-base">{postData.description}</p>
+            <p className="text-gray-700 text-base break-all">{postData.description}</p>
             {/** post image */}
             <img className="w-full mt-3" src={postData.imageURL} alt={postData.id} />
           </div>
