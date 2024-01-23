@@ -7,6 +7,7 @@ import Input from '../components/Input';
 import { FiEdit2 } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import UpdateNameModal from '../components/modals/UpdateNameModal';
+import UpdateAvatarModal from '../components/modals/UpdateAvatarModal';
 
 /**
  *
@@ -27,6 +28,10 @@ const AccountPage = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  /** open upload modal */
+  const [openAva, setOpenAva] = useState(false);
+  const handleOpenAva = () => setOpenAva(true);
+  const handleCloseAva = () => setOpen(false);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -51,30 +56,39 @@ const AccountPage = () => {
     };
   }, [userId]);
 
-  /** upload file handler */
 
   return (
     <div className="container-2xl mx-10 mb-10">
       {/** modal */}
       {open ? <UpdateNameModal open={open} handleClose={handleClose} /> : <></>}
+      {openAva && user ? (
+        <UpdateAvatarModal
+          open={openAva}
+          setImageUrl={setImageUrl}
+          currentImage={user.avatarURL}
+          handleClose={handleCloseAva}
+        />
+      ) : (
+        <></>
+      )}
       <div className="grid grid-cols-3 mt-10 gap-10">
         <div className="">
           {/** avatar */}
           <div className="flex mb-10">
             <div className="relative">
               <img
-                src={user.avatarURL}
+                src={imageUrl ? imageUrl : user.avatarURL}
                 alt={user.id}
                 className="w-60 h-60 rounded-full"
                 style={{ objectFit: 'cover' }}
               />
               {currentUser.userId === userId ? (
-                  <FiEdit2
-                    size={40}
-                    className="p-3 rounded-full cursor-pointer absolute right-4 bottom-2 bg-card"
-                    onClick={handleOpen}
-                    style={{fill: 'white'}}
-                  />
+                <FiEdit2
+                  size={40}
+                  className="p-3 rounded-full cursor-pointer absolute right-4 bottom-2 bg-card"
+                  onClick={handleOpenAva}
+                  style={{ fill: 'white' }}
+                />
               ) : (
                 <></>
               )}
