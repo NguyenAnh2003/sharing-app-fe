@@ -63,18 +63,7 @@ const AccountPage = () => {
           <></>
         )}
       </div>
-      <div className="flex flex-row justify-evenly gap-6">
-        {/** edit part */}
-        <div className="ml-64">
-          <div className="">
-            <UploadFile
-              setUrl={setImageUrl}
-              userId={user.id}
-              imageUrl={user.avatarURL}
-              variant={'user'}
-            />
-          </div>
-        </div>
+      <div className="flex flex-row justify-center">
         {/** post part */}
         <div className="w-[500px]">
           <div className="flex flex-col gap-4">
@@ -84,7 +73,7 @@ const AccountPage = () => {
                 <PostCard key={idx} postId={i.id} />
               ))
             ) : (
-              <h1>No posts</h1>
+              <></>
             )}
           </div>
         </div>
