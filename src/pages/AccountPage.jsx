@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPostsByUserId, getUserById, setUserId } from '../libs';
+import { getPostsByUserId, getUserById, setUserId, uploadFile } from '../libs';
 import UploadFile from '../components/UploadFile';
 import PostCard from '../components/cards/PostCard';
 import Input from '../components/Input';
 import { FiEdit2 } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import UpdateNameModal from '../components/modals/UpdateNameModal';
-import UpdateAvatarModal from '../components/modals/UpdateAvatarModal';
+import { GrUpdate } from 'react-icons/gr';
+import toast from 'react-hot-toast';
+
 
 /**
  *
@@ -19,7 +21,8 @@ const AccountPage = () => {
   const { userId } = useParams();
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState(); // imageUrl
+  const [file, setFile] = useState();
   /**
    * Calling current user to check (state)
    * Allowing to update based on current userId
@@ -28,10 +31,6 @@ const AccountPage = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  /** open upload modal */
-  const [openAva, setOpenAva] = useState(false);
-  const handleOpenAva = () => setOpenAva(true);
-  const handleCloseAva = () => setOpen(false);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -56,21 +55,34 @@ const AccountPage = () => {
     };
   }, [userId]);
 
+  const fileChangeHandler = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const uploadHandler = useCallback(async () => {
+    try {
+      if (file === null) toast.error('No file chosen');
+      else {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const { data, status } = await uploadFile(formData); // form data
+        if (status === 200) {
+          console.log('image', data);
+          setImageUrl(data); // parent
+          toast.success('Uploaded successfully');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.data);
+    }
+  }, [currentUser]);
 
   return (
     <div className="container-2xl mx-10 mb-10">
       {/** modal */}
       {open ? <UpdateNameModal open={open} handleClose={handleClose} /> : <></>}
-      {openAva && user ? (
-        <UpdateAvatarModal
-          open={openAva}
-          setImageUrl={setImageUrl}
-          currentImage={user.avatarURL}
-          handleClose={handleCloseAva}
-        />
-      ) : (
-        <></>
-      )}
       <div className="grid grid-cols-3 mt-10 gap-10">
         <div className="">
           {/** avatar */}
@@ -83,12 +95,20 @@ const AccountPage = () => {
                 style={{ objectFit: 'cover' }}
               />
               {currentUser.userId === userId ? (
-                <FiEdit2
-                  size={40}
-                  className="p-3 rounded-full cursor-pointer absolute right-4 bottom-2 bg-card"
-                  onClick={handleOpenAva}
-                  style={{ fill: 'white' }}
-                />
+                <div className="mt-5">
+                  <input
+                    class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                    type="file"
+                    onChange={fileChangeHandler}
+                    id="formFileMultiple"
+                  />
+                  <GrUpdate
+                    onClick={uploadHandler}
+                    size={45}
+                    className="p-3 rounded-full cursor-pointer absolute -right-2 -bottom-1 bg-card"
+                    style={{ fill: 'white' }}
+                  />
+                </div>
               ) : (
                 <></>
               )}
