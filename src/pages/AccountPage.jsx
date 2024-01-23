@@ -78,8 +78,8 @@ const AccountPage = () => {
           </div>
         </div>
         {/** post part */}
-        <div className="">
-          <div className="flex flex-col gap-4">
+        <div className="col-span-2">
+          <div className="grid grid-cols-2 auto-cols-min gap-4">
             {posts.length !== 0 ? (
               posts.map((i, idx) => (
                 /** post Data */
