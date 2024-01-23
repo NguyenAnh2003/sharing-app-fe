@@ -51,6 +51,8 @@ const AccountPage = () => {
     };
   }, [userId]);
 
+  /** upload file handler */
+
   return (
     <div className="container-2xl mx-10 mb-10">
       {/** modal */}
@@ -66,6 +68,16 @@ const AccountPage = () => {
                 className="w-60 h-60 rounded-full"
                 style={{ objectFit: 'cover' }}
               />
+              {currentUser.userId === userId ? (
+                  <FiEdit2
+                    size={40}
+                    className="p-3 rounded-full cursor-pointer absolute right-4 bottom-2 bg-card"
+                    onClick={handleOpen}
+                    style={{fill: 'white'}}
+                  />
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <div className="flex flex-row items-center mt-5 gap-4 ml-5">
