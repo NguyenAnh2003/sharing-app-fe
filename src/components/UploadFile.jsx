@@ -15,7 +15,7 @@ const UploadFile = ({ setUrl, imageUrl }) => {
   const [file, setFile] = useState(null);
   const currentUser = useSelector((state) => state.currentUser.userId);
   const [img, setImg] = useState(
-    'http://res.cloudinary.com/drijaswh2/image/upload/v1705807950/cwfs1vnfho0rhpuxtqvu.jpg'
+    'https://www.lifewire.com/thmb/TRGYpWa4KzxUt1Fkgr3FqjOd6VQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg'
   );
 
   const fileChangeHandler = (e) => {
@@ -44,12 +44,12 @@ const UploadFile = ({ setUrl, imageUrl }) => {
   }, [currentUser, file]);
 
   return (
-    <div className="w-[270px]">
+    <div className="w-[300px]">
       {/** display image */}
-      <div className="mb-5  h-[266px]">
+      <div className="mb-5">
         <img
           style={{ objectFit: 'cover' }}
-          className=" w-full"
+          className="w-full h-[187px]"
           src={imageUrl ? imageUrl : img}
           alt="image"
         />
